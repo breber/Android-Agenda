@@ -6,8 +6,6 @@
 
 Download the app from the Android Market (https://market.android.com/details?id=org.reber.agenda)
 
-----
-
 ==Changelog==
 
 ===Version 1.1.6===
@@ -26,7 +24,7 @@ Download the app from the Android Market (https://market.android.com/details?id=
 -Bug fixes
 
 ===Version 1.1.2===
--Added Russian translation. Huge thanks to Alexander Tatevyan and [CPR]-AL.exe for their translations!
+-Added Russian translation. Huge thanks to Alexander Tatevyan and <nowiki>[CPR]-AL.exe</nowiki> for their translations!
 -Add the ability to view full details of an event in your phone's default calendar app by clicking on it in the list. Note, this is still a beta feature, so it might not work fully on your phone.
 
 ===Version 1.1.1===
