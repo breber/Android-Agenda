@@ -9,6 +9,11 @@ Download the app from the [https://market.android.com/details?id=org.reber.agend
 
 ==Changelog==
 
+===Version 1.1.7 - <span style="color:Red">Coming Soon!</span>===
+
+*Adding ability to customize the number of days to display in the main app
+*UI cleanup
+
 ===Version 1.1.6===
 
 *Adding German translation
