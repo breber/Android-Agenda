@@ -9,6 +9,11 @@ Download the app from the [https://market.android.com/details?id=org.reber.agend
 
 ==Changelog==
 
+===Version 1.2.0===
+
+*New layout for Honeycomb (or other larger screen devices)
+*Fix for possible crash on Honeycomb devices caused when retrieving the list of events
+
 ===Version 1.1.7===
 
 *Adding ability to customize the number of days to display in the main app
