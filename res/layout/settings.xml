@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2011 Brian Reber
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms are permitted
+ * provided that the above copyright notice and this paragraph are
+ * duplicated in all such forms and that any documentation,
+ * advertising materials, and other materials related to such
+ * distribution and use acknowledge that the software was developed
+ * by Brian Reber.  
+ * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="fill_parent"
+	android:id="@+id/settingsLayout">
+	<LinearLayout android:focusable="true" android:focusableInTouchMode="true"
+    	android:layout_width="0px" android:layout_height="0px"/>
+	<ScrollView android:id="@+id/scrollview" android:layout_height="fill_parent" 
+		android:layout_width="fill_parent" android:layout_above="@+id/saveAppSettings"
+		android:layout_alignTop="@+id/settingsLayout">
+		<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:padding="5dip">
+			<TextView android:id="@+id/chooseCalendarsLabel"
+				android:layout_height="wrap_content" android:layout_width="fill_parent"
+				android:text="@string/chooseCalendars" android:textSize="16sp" android:paddingBottom="5dip"></TextView>
+		
+			<Button android:layout_below="@+id/chooseCalendarsLabel"
+				android:text="@string/chooseCalendars" android:id="@+id/appChooseCalsButton"
+				android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
+		
+			<TextView android:id="@+id/numDaysLabel" android:text="@string/numDaysToDisplay"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
+				android:layout_below="@+id/appChooseCalsButton"></TextView>
+			<EditText android:id="@+id/numDays" android:hint="@string/numDaysHint7"
+				android:layout_height="wrap_content" android:layout_width="fill_parent"
+				android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
+				android:layout_below="@+id/numDaysLabel" android:singleLine="true"
+				android:inputType="number" android:layout_marginBottom="5dip"
+				android:nextFocusUp="@+id/text" android:nextFocusLeft="@+id/text"></EditText>
+		
+			<CheckBox android:id="@+id/appUse24Hour" android:text="@string/use24Hour"
+				android:layout_below="@+id/numDays"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+			
+			<CheckBox android:id="@+id/appEnableClick" android:text="@string/enableClick"
+				android:layout_below="@+id/appUse24Hour"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
+		</RelativeLayout>
+	</ScrollView>
+	<Button android:text="@string/ok" android:id="@+id/saveAppSettings"
+		android:layout_marginTop="5dip" android:layout_marginBottom="5dip"  android:layout_height="wrap_content"
+		android:layout_width="fill_parent" android:layout_alignParentBottom="true"></Button>
+</RelativeLayout>

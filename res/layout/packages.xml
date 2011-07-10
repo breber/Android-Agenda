@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2011 Brian Reber
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms are permitted
+ * provided that the above copyright notice and this paragraph are
+ * duplicated in all such forms and that any documentation,
+ * advertising materials, and other materials related to such
+ * distribution and use acknowledge that the software was developed
+ * by Brian Reber.  
+ * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="30dip"
+	android:paddingLeft="0px" android:paddingRight="6dip"
+	android:paddingTop="6dip" android:paddingBottom="6dip">
+	<ImageView android:layout_width="wrap_content"
+		android:layout_height="fill_parent" android:layout_marginRight="6dip"
+		android:layout_marginLeft="0px" android:paddingLeft="0px"
+		android:id="@+id/package_icon" />
+	<RelativeLayout android:orientation="vertical"
+		android:layout_width="0dip" android:layout_weight="1"
+		android:layout_height="50dip" android:gravity="center_vertical">
+		<TextView android:layout_width="fill_parent"
+			android:textSize="17sp" android:layout_height="wrap_content"
+			android:layout_weight="1" android:id="@+id/app_name"
+			android:maxLines="1" android:textStyle="bold" android:textColor="@color/black" />
+		<TextView android:layout_width="fill_parent"
+			android:textSize="14sp" android:layout_height="wrap_content"
+			android:layout_weight="1" android:textColor="@color/darkGray" android:id="@+id/package_name"
+			android:maxLines="1" android:layout_below="@+id/app_name" />
+	</RelativeLayout>
+</LinearLayout>
