@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
+import org.reber.agenda.AgendaActivity;
 import org.reber.agenda.AndroidCalendar;
 import org.reber.agenda.R;
 import org.reber.agenda.util.CalendarUtilities;
@@ -33,35 +34,49 @@ import android.widget.Toast;
  */
 public class AgendaListFragment extends ListFragment {
 
-	private CalendarUtilities util;
-    private SharedPreferences pref;
-	public static int NUM_DAYS_IN_LIST = 7;
-    
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Log.d(Constants.TAG, "onActivityCreated");
+	private int triggeredWidgetId = -1;
 
-    	pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_READABLE);
-    	this.util = new CalendarUtilities(getActivity(), pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
-        
-    	notifyUtilUpdated();
-    }
-    
+	private CalendarUtilities util;
+	private SharedPreferences pref;
+	public static int NUM_DAYS_IN_LIST = 7;
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Log.d(Constants.TAG, "onActivityCreated");
+
+		triggeredWidgetId = -1;
+		Bundle b = getActivity().getIntent().getExtras();
+		if (b != null) {
+			triggeredWidgetId = b.getInt(AgendaActivity.WIDGET_EXTRA, -1);
+		}
+
+		pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_READABLE);
+		this.util = new CalendarUtilities(getActivity(), pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
+
+		notifyUtilUpdated();
+	}
+
 	/**
 	 * Updates the ListView with the events within the next NUM_DAYS_IN_LIST days
 	 */
 	protected void updateList() {
 		try {
-			util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
+			if (triggeredWidgetId == -1) {
+				util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
+			} else {
+				// If we have a valid widget id (this activity was started by clicking on the widget),
+				// set the calendars for this run to the calendars from that widget's preferences
+				util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.Widget.WIDGET_PREFS + triggeredWidgetId));
+			}
 		} catch (NoSuchElementException e) {
 			util.setSelectedCalendars(new HashSet<AndroidCalendar>());
 		}
-		
+
 		Collection<Event> events = util.getCalendarData(NUM_DAYS_IN_LIST, true);
-		
+
 		setListAdapter(new CalendarListAdapter(getActivity(), android.R.layout.simple_list_item_1, getListWithDateRows(events), util));
-		
+
 		if (util.getSelectedCalendars().isEmpty()) {
 			setEmptyText(getActivity().getResources().getText(R.string.noCalendarsSelected));
 		} else if (events.isEmpty()) {
@@ -95,16 +110,16 @@ public class AgendaListFragment extends ListFragment {
 		return eventList;
 	}
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-    	SharedPreferences pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_READABLE);
-    	if (pref.getBoolean(Constants.AgendaList.ENABLE_CLICK_EVENT, true)) {
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		SharedPreferences pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_READABLE);
+		if (pref.getBoolean(Constants.AgendaList.ENABLE_CLICK_EVENT, true)) {
 			Object obj = l.getItemAtPosition(position);
 			Event ev = null;
 			if (obj instanceof Event) {
 				ev = (Event) obj;
 			}
-			
+
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setData(Uri.parse(ev.getContentProvider() + "events/" + ev.getId()));
 			// Who knows why you need to put the start and end times in the intent,
@@ -116,8 +131,8 @@ public class AgendaListFragment extends ListFragment {
 			} catch (ActivityNotFoundException e) {
 				Toast.makeText(getActivity(), "Unable to open event", Toast.LENGTH_SHORT).show();
 			}
-    	}
-    }
+		}
+	}
 
 	/**
 	 * The util variable might have been updated. We will update our state based on the state
@@ -130,16 +145,16 @@ public class AgendaListFragment extends ListFragment {
 		} catch (NoSuchElementException e) {
 			util.setSelectedCalendars(new HashSet<AndroidCalendar>());
 		}
-		
+
 		NUM_DAYS_IN_LIST = pref.getInt(Constants.AgendaList.NUM_DAYS, 7);
-		
+
 		TextView title = (TextView) getActivity().findViewById(R.id.chooseLabel);
 
 		if (title != null) {
 			title.setText(String.format(getResources().getString(R.string.upcomingEvents), AgendaListFragment.NUM_DAYS_IN_LIST));
 		}
-		
+
 		updateList();
 	}
-	
+
 }

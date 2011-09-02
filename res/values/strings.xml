@@ -51,6 +51,6 @@
 	<string name="enableClick">Open event on click</string>
 	<string name="newEvent">New Event</string>
 	
-	<string name="updateMessage">-New layout for Honeycomb (or other larger screen devices)\n-Fix for possible crash
-		on Honeycomb devices caused by retrieving the list of events</string>
+	<string name="updateMessage">-When opening this app by clicking on the widget, events from that widget\'s
+		group of selected calendars is displayed (thanks Andrey!)</string>
 </resources>

@@ -9,6 +9,11 @@ Download the app from the [https://market.android.com/details?id=org.reber.agend
 
 ==Changelog==
 
+===Version 1.2.1===
+*When opening the App by clicking on the widget, events from that widget's group of selected calendars is displayed
+**This differs from what was done in the past. In the past, opening the app (by any means) would display the events from the group of calendars specified in the app's preferences
+**Thanks Andrey for the implementation!
+
 ===Version 1.2.0===
 
 *New layout for Honeycomb (or other larger screen devices)

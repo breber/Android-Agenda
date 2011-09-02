@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.reber.agenda" android:versionName="1.2.0" android:versionCode="19">
+	package="org.reber.agenda" android:versionName="1.2.1" android:versionCode="20">
 	<application android:icon="@drawable/icon" android:label="@string/appName">
 		<activity android:name=".MainApp" android:label="@string/appName" android:configChanges="keyboardHidden|orientation">
 			<intent-filter>

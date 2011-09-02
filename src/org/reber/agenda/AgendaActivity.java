@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -40,18 +40,20 @@ import android.widget.TextView;
  * @author brianreber
  */
 public class AgendaActivity extends FragmentActivity {
-	
+
+	public static final String WIDGET_EXTRA = "appWidgetId";
+
 	private AgendaListFragment frag;
 	private CalendarListFragment calfrag;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		setResult(RESULT_OK, new Intent(AgendaWidgetProvider.WIDGET_UPDATE));
-		
+
 		final SharedPreferences pref = getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_WRITEABLE);
 		if (getResources().getIntArray(R.array.versions)[0] > pref.getInt(Constants.AgendaList.VERSION, 0)) {
 			Dialog dlg = new Dialog(this);
@@ -72,7 +74,7 @@ public class AgendaActivity extends FragmentActivity {
 			});
 			dlg.show();
 		}
-		
+
 		frag = (AgendaListFragment) getSupportFragmentManager().findFragmentById(R.id.list_frag);
 		calfrag = (CalendarListFragment) getSupportFragmentManager().findFragmentById(R.id.cal_list_frag);
 	}
@@ -80,7 +82,7 @@ public class AgendaActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		if (frag != null) {
 			frag.notifyUtilUpdated();
 		}
@@ -98,7 +100,7 @@ public class AgendaActivity extends FragmentActivity {
 		inflater.inflate(R.menu.appmenu, menu);
 		return true;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onPrepareOptionsMenu(android.view.Menu)
 	 */
@@ -109,10 +111,10 @@ public class AgendaActivity extends FragmentActivity {
 		if (!Util.isIntentAvailable(this, intent)) {
 			menu.removeItem(R.id.newEventMenuItem);
 		}
-		
+
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onMenuOpened(int, android.view.Menu)
 	 */
@@ -134,23 +136,23 @@ public class AgendaActivity extends FragmentActivity {
 		} else if (id == R.id.newEventMenuItem) {
 			Intent intent = new Intent(Intent.ACTION_EDIT);
 			intent.setType("vnd.android.cursor.item/event");
-			
+
 			startActivity(intent);
 		}
 
 		return true;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		if (requestCode == 10000 && resultCode != RESULT_CANCELED) {
 			frag.notifyUtilUpdated();
-			
+
 			if (calfrag != null) {
 				calfrag.setPrefToGrabFrom(Constants.AgendaList.APP_PREFS);
 			}

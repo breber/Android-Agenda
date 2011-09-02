@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -46,40 +46,40 @@ import android.widget.RemoteViews;
  * @author brianreber
  */
 public class AgendaWidgetProvider extends AppWidgetProvider {
-	
+
 	public static String WIDGET_NEXT_EVENT = "org.reber.agenda.AGENDA_WIDGET_NEXT_EVENT";
 	public static String WIDGET_UPDATE = "org.reber.agenda.AGENDA_WIDGET_UPDATE";
-	
+
 	public static String NEXT_POS_EXTRA = "NEXT_POS";
 	public static String WIDGET_ID_EXTRA = "WIDGET_ID";
 	private static CalendarUtilities util;
 	private static ArrayList<Integer> ids = new ArrayList<Integer>();
-	
+
 	/* (non-Javadoc)
 	 * @see android.appwidget.AppWidgetProvider#onReceive(android.content.Context, android.content.Intent)
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
-        if (WIDGET_UPDATE.equals(action)) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                int[] appWidgetIds = extras.getIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                if (appWidgetIds != null && appWidgetIds.length > 0) {
-                    this.onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds);
-                }
-            }
-        } else if (WIDGET_NEXT_EVENT.equals(action)) {
-            Bundle extras = intent.getExtras();
-            if (extras != null) {
-                int appWidgetId = extras.getInt(WIDGET_ID_EXTRA);
-                updateAppWidget(context, AppWidgetManager.getInstance(context), appWidgetId, intent.getIntExtra(NEXT_POS_EXTRA, 0));
-            }
-        } else {
-        	super.onReceive(context, intent);
-        }
+		String action = intent.getAction();
+		if (WIDGET_UPDATE.equals(action)) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				int[] appWidgetIds = extras.getIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+				if (appWidgetIds != null && appWidgetIds.length > 0) {
+					this.onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds);
+				}
+			}
+		} else if (WIDGET_NEXT_EVENT.equals(action)) {
+			Bundle extras = intent.getExtras();
+			if (extras != null) {
+				int appWidgetId = extras.getInt(WIDGET_ID_EXTRA);
+				updateAppWidget(context, AppWidgetManager.getInstance(context), appWidgetId, intent.getIntExtra(NEXT_POS_EXTRA, 0));
+			}
+		} else {
+			super.onReceive(context, intent);
+		}
 	}
-	
+
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		// Perform this loop procedure for each App Widget that belongs to this provider
@@ -87,13 +87,13 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			int appWidgetId = appWidgetIds[i];
 			Log.d(Constants.TAG, "UPDATING - " + appWidgetId + " at " + new Date().getHours() + ":" + new Date().getMinutes());
 			updateAppWidget(context, appWidgetManager, appWidgetId, 0);
-		
+
 			if (!ids.contains(new Integer(appWidgetId))) {
 				AgendaConfigure.setAlarm(context, appWidgetId);
 			}
 		}
 	}
-	
+
 	/**
 	 * Updates the widget with the given widgetId.
 	 * 
@@ -113,29 +113,30 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		int numDays = pref.getInt(Constants.Widget.NUM_DAYS, 2);
 		boolean clickToShowDiffEvent = pref.getBoolean(Constants.Widget.MULTIPLE_EVENTS, false);
 		String widgetTextSize = pref.getString(Constants.Widget.TEXT_SIZE, "Large");
-		
+
 		bgColor &= 0x00FFFFFF;
 		bgColor |= (transparency << 24);
 		Date currentDate = new Date();
 		Intent intent = new Intent();
 		PendingIntent pendingIntent = null;
-		
+
 		if (packageName.equals("org.reber.agenda")) {
 			intent = new Intent(context, AgendaActivity.class);
-			pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+			intent.putExtra(AgendaActivity.WIDGET_EXTRA, appWidgetId);
+			pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, 0);
 		} else if (!packageName.equals("")) {
 			// Open app
 			intent = new Intent(Intent.ACTION_MAIN);
 			intent.setPackage(packageName);
 			pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-			
+
 			// Go to configuration screen
-//			intent = new Intent(context, AgendaConfigure.class);
-//			intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-//			pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+			//			intent = new Intent(context, AgendaConfigure.class);
+			//			intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+			//			pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		}
-		
-		
+
+
 		// Get the layout for the App Widget and attach an on-click listener to the button
 		RemoteViews views;
 		if (widgetTextSize.equals(context.getResources().getString(R.string.large))) {
@@ -151,12 +152,12 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			views.setInt(R.id.agenda_frame, "setBackgroundColor", bgColor);
 		}
 		setTextColor(views, textColor);
-		
+
 		Collection<Event> events = null;
 		if (util == null) {
 			util = new CalendarUtilities(context, pref.getBoolean(Constants.Widget.USE_24_HR, false));
-		} 
-		
+		}
+
 		try {
 			util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.Widget.WIDGET_PREFS + "" + appWidgetId));
 		} catch (NoSuchElementException e) {
@@ -175,7 +176,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			}
 		}
 		events = util.getCalendarData(numDays, false);
-		
+
 		if (clickToShowDiffEvent) {
 			int nextPos = eventPos + 1;
 			if (nextPos > events.size() - 1) {
@@ -186,7 +187,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			intentSwitchEvent.putExtra(NEXT_POS_EXTRA, nextPos);
 			intentSwitchEvent.putExtra(WIDGET_ID_EXTRA, appWidgetId);
 			PendingIntent pendingIntentSwitchEvent = PendingIntent.getBroadcast(context, appWidgetId + nextPos * 31, intentSwitchEvent, 0);
-			
+
 			views.setOnClickPendingIntent(R.id.text_frame, pendingIntentSwitchEvent);
 			if (pendingIntent != null) {
 				views.setOnClickPendingIntent(R.id.image_frame, pendingIntent);
@@ -199,10 +200,10 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 
 		if (context.getResources().getIntArray(R.array.versions)[0] > widgetVersion) {
 			// On the first time opening the widget, we need to have them select their preferences
-//			views.setViewVisibility(R.id.event_view, View.INVISIBLE);
-//			views.setViewVisibility(R.id.empty_msg, View.VISIBLE);
-//			views.setTextViewText(R.id.empty_msg, "Please re-add widget to home screen");
-			
+			//			views.setViewVisibility(R.id.event_view, View.INVISIBLE);
+			//			views.setViewVisibility(R.id.empty_msg, View.VISIBLE);
+			//			views.setTextViewText(R.id.empty_msg, "Please re-add widget to home screen");
+
 			Editor edit = pref.edit();
 			edit.putInt(Constants.Widget.VERSION, context.getResources().getIntArray(R.array.versions)[0]);
 			edit.commit();
@@ -213,10 +214,10 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		} else {
 			views.setViewVisibility(R.id.empty_msg, View.INVISIBLE);
 			views.setViewVisibility(R.id.event_view, View.VISIBLE);
-			
+
 			Iterator<Event> iter = events.iterator();
 			Event first = iter.next();
-			
+
 			for (int i = 0; i < eventPos; i++) {
 				try {
 					first = iter.next();
@@ -226,19 +227,19 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 					first = iter.next();
 				}
 			}
-			
+
 			String tomorrow = CalendarUtilities.getDateString(context, first);
 			if (clickToShowDiffEvent && tomorrow.contains(context.getResources().getText(R.string.tomorrow))) {
 				tomorrow = tomorrow.replace(context.getResources().getText(R.string.tomorrow), context.getResources().getText(R.string.tomorrowAbbreviation));
 			}
-			
+
 			String location = first.getLocation();
 			// If there is no location, we want to center the stuff on the widget
 			if (location == null || (location != null && location.equals(""))) {
 				views.setViewVisibility(R.id.event_view_text, View.INVISIBLE);
 				views.setViewVisibility(R.id.event_view_text_no_loc, View.VISIBLE);
-				
-				views.setTextViewText(R.id.when_no_loc,  (!tomorrow.contains(context.getResources().getText(R.string.today)) ? tomorrow + " ": "") + 
+
+				views.setTextViewText(R.id.when_no_loc,  (!tomorrow.contains(context.getResources().getText(R.string.today)) ? tomorrow + " ": "") +
 						util.getFormattedTimeString(context, first));
 
 				views.setTextViewText(R.id.item_title_no_loc, first.getTitle());
@@ -252,7 +253,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 					}
 					views.setViewVisibility(R.id.event_num_no_loc, View.VISIBLE);
 					views.setTextViewText(R.id.event_num_no_loc, (eventPos + 1) + "/" + events.size());
-					
+
 					Intent widgetUpdate = new Intent();
 					widgetUpdate.setAction(AgendaWidgetProvider.WIDGET_UPDATE);
 					widgetUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
@@ -265,7 +266,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			} else {
 				views.setViewVisibility(R.id.event_view_text_no_loc, View.INVISIBLE);
 				views.setViewVisibility(R.id.event_view_text, View.VISIBLE);
-				
+
 				views.setTextViewText(R.id.where, location);
 				views.setTextViewText(R.id.when,  (!tomorrow.contains(context.getResources().getText(R.string.today)) ? tomorrow + " ": "") +
 						util.getFormattedTimeString(context, first));
@@ -298,7 +299,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		// Tell the AppWidgetManager to perform an update on the current App Widget
 		appWidgetManager.updateAppWidget(appWidgetId, views);
 	}
-	
+
 	/**
 	 * Sets the text color on the widget
 	 * 
@@ -315,7 +316,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		views.setTextColor(R.id.when_no_loc, color);
 		views.setTextColor(R.id.item_title_no_loc, color);
 	}
-	
+
 	/**
 	 * Adds the id of a widget to the list of widgets that have alarms set
 	 * @param ctx
@@ -323,11 +324,9 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	 * The id of the widget
 	 */
 	public static void addIdToAlarm(Context ctx, int id) {
-//		Log.d(Constants.TAG, "Adding " + id + " to list. List: " + ids.toString());
 		ids.add(new Integer(id));
-//		Log.d(Constants.TAG, "Added " + id + " to list. List: " + ids.toString());
 	}
-	
+
 	/**
 	 * Removes the id of a widget from the list of widgets that have alarms set
 	 * @param ctx
@@ -335,15 +334,13 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	 * The id of the widget
 	 */
 	public static void removeIdFromList(Context ctx, int id) {
-//		Log.d(Constants.TAG, "Removing " + id + " from list. List: " + ids.toString());
 		ids.remove(new Integer(id));
-//		Log.d(Constants.TAG, "Removed " + id + " from list. List: " + ids.toString());
 	}
-	
+
 	@Override
 	public void onDeleted(Context context, int[] appWidgetIds) {
 		super.onDeleted(context, appWidgetIds);
-		
+
 		for (int appWidgetId : appWidgetIds) {
 			Log.d(Constants.TAG, "DELETING - " + appWidgetId);
 			SharedPreferences pref = context.getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + appWidgetId, Context.MODE_WORLD_WRITEABLE);
@@ -352,19 +349,19 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			edit.putInt(Constants.Widget.TEXT_COLOR, context.getResources().getColor(R.color.white));
 			edit.putInt(Constants.Widget.TRANSPARENCY, 0xFF000000);
 			edit.commit();
-			
+
 			if (util != null) {
 				util.setSelectedCalendars(new HashSet<AndroidCalendar>());
 				util.saveSelectedCalendarsPref(Constants.Widget.WIDGET_PREFS + "" + appWidgetId);
 			} else {
 				new CalendarUtilities(context, false).saveSelectedCalendarsPref(Constants.Widget.WIDGET_PREFS + "" + appWidgetId);
 			}
-			
+
 			// When the widget is disabled, we want to remove the update alarm
 			AgendaConfigure.cancelAlarm(context, appWidgetId);
 		}
 	}
-	
+
 	/**
 	 * Adds the instance of CalendarUtil to the widget for future use
 	 * 
@@ -374,7 +371,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	public static void saveUtil(CalendarUtilities utl) {
 		util = utl;
 	}
-	
+
 	/**
 	 * Android version 2.1 and lower can't set the background color of the widget
 	 * programmatically, so we want to disable it.
