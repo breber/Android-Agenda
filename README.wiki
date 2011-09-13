@@ -5,7 +5,9 @@
 
 '''Purpose''': Provide a highly customizable widget experience for displaying upcoming events on the user's calendars
 
-Download the app from the [https://market.android.com/details?id=org.reber.agenda Android Market]
+Download the app from the [https://market.android.com/details?id=org.reber.agenda Android Market].
+
+If you don't have access to the Android Market, you can download the APK from [http://dl.dropbox.com/u/2202216/Agenda_v1.2.1.apk here].
 
 ==Changelog==
 
