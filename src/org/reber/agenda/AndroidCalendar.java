@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,11 +20,10 @@ package org.reber.agenda;
  * @author brianreber
  */
 public class AndroidCalendar {
-	private String contentProvider;
 	private String id;
 	private String color;
 	private String name;
-	
+
 	/**
 	 * Creates a new Calendar with the given parameters
 	 * 
@@ -35,27 +34,12 @@ public class AndroidCalendar {
 	 * @param name
 	 * The name of the calendar
 	 */
-	public AndroidCalendar(String contentProvider, String id, String color, String name) {
-		this.contentProvider = contentProvider;
+	public AndroidCalendar(String id, String color, String name) {
 		this.id = id;
 		this.color = color;
 		this.name = name;
 	}
-	
-	/**
-	 * @return the contentProvider of this calendar
-	 */
-	public String getContentProvider() {
-		return contentProvider;
-	}
 
-	/**
-	 * @param contentProvider the contentProvider to set
-	 */
-	public void setContentProvider(String contentProvider) {
-		this.contentProvider = contentProvider;
-	}
-	
 	/**
 	 * @return the id of this calendar
 	 */
@@ -97,7 +81,7 @@ public class AndroidCalendar {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

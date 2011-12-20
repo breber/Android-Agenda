@@ -14,16 +14,40 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="wrap_content">
-	<TextView android:id="@+id/chooseLabel" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:text="@string/upcomingEvents"
-		android:gravity="center" android:textSize="15dip"></TextView>
-	<RelativeLayout android:id="@+id/listViewRelative" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:layout_below="@+id/chooseLabel">
-		<fragment class="org.reber.agenda.list.CalendarListFragment" android:id="@+id/cal_list_frag"
-			android:visibility="visible" android:layout_width="300dp" android:layout_height="fill_parent"></fragment>
-		<fragment class="org.reber.agenda.list.AgendaListFragment" android:id="@+id/list_frag"
-			android:visibility="visible" android:layout_width="wrap_content" android:layout_height="fill_parent"
-			android:layout_toRightOf="@+id/cal_list_frag"></fragment>	
-	</RelativeLayout>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/chooseLabel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/upcomingEvents"
+        android:textSize="15dip" >
+    </TextView>
+
+    <RelativeLayout
+        android:id="@+id/listViewRelative"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/chooseLabel" >
+
+        <fragment
+            android:id="@+id/cal_list_frag"
+            android:layout_width="300dp"
+            android:layout_height="fill_parent"
+            class="org.reber.agenda.list.CalendarListFragment"
+            android:visibility="visible" >
+        </fragment>
+
+        <fragment
+            android:id="@+id/list_frag"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/cal_list_frag"
+            class="org.reber.agenda.list.AgendaListFragment"
+            android:visibility="visible" >
+        </fragment>
+    </RelativeLayout>
+
 </RelativeLayout>

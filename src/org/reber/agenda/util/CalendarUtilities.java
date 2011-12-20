@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -43,6 +43,7 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -53,17 +54,16 @@ import android.util.Log;
  */
 public class CalendarUtilities {
 
-	private static String CONTENT_PROVIDER = "content://%s/";
 	private Set<org.reber.agenda.AndroidCalendar> calendars;
 	private Set<org.reber.agenda.AndroidCalendar> selectedCalendars;
 	private Context context;
 	private boolean use24Hour;
-	
+
 	public static SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
-	
+
 	private static final Map<String, Integer> colorBarResources = new HashMap<String, Integer>();
 	private static final Map<String, Integer> colorCalendarResources = new HashMap<String, Integer>();
-	
+
 	static {
 		colorBarResources.put("a32929", R.drawable.agenda_calendar_01);
 		colorBarResources.put("b1365f", R.drawable.agenda_calendar_02);
@@ -107,8 +107,8 @@ public class CalendarUtilities {
 		colorBarResources.put("0f4b38", R.drawable.agenda_calendar_40);
 		colorBarResources.put("856508", R.drawable.agenda_calendar_41);
 		colorBarResources.put("711616", R.drawable.agenda_calendar_42);
-		
-		
+
+
 		colorCalendarResources.put("a32929", R.drawable.calendar_icon_01);
 		colorCalendarResources.put("b1365f", R.drawable.calendar_icon_02);
 		colorCalendarResources.put("7a367a", R.drawable.calendar_icon_03);
@@ -152,7 +152,7 @@ public class CalendarUtilities {
 		colorCalendarResources.put("856508", R.drawable.calendar_icon_41);
 		colorCalendarResources.put("711616", R.drawable.calendar_icon_42);
 	}
-	
+
 	/**
 	 * Creates a new CalendarUtilities instance with the given context
 	 * 
@@ -164,7 +164,7 @@ public class CalendarUtilities {
 		calendars = new HashSet<org.reber.agenda.AndroidCalendar>();
 		selectedCalendars = new HashSet<org.reber.agenda.AndroidCalendar>();
 	}
-	
+
 	/**
 	 * @return the use24Hour
 	 */
@@ -179,7 +179,7 @@ public class CalendarUtilities {
 	public void setUse24Hour(boolean use24Hour) {
 		this.use24Hour = use24Hour;
 	}
-	
+
 	/**
 	 * Gets a set of all available calendars on this device
 	 * 
@@ -188,25 +188,27 @@ public class CalendarUtilities {
 	 */
 	public Set<org.reber.agenda.AndroidCalendar> getAvailableCalendars() {
 		ContentResolver contentResolver = context.getContentResolver();
-		
-		for (String prov : getContentProviders()) {
-			Uri calendarsURI = Uri.parse(prov + "calendars");
-			Cursor cursor = contentResolver.query(calendarsURI, new String[]{ "_id", "color", "displayName" }, null, null, null);
-			// Get all the enabled calendars in the database
-			while (cursor != null && cursor.moveToNext()) {
-				AndroidCalendar current = new AndroidCalendar(prov, cursor.getString(0), 
-						getColorHex(cursor.getString(1)), cursor.getString(2));
-				if (!calendars.contains(current)) {
-					calendars.add(current);
-				}
-			}
-			if (cursor != null) {
-				cursor.close();
+
+		Uri calendarsURI = CalendarContract.Calendars.CONTENT_URI;
+		Cursor cursor = contentResolver.query(calendarsURI,
+				new String[]{ CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_COLOR,
+				CalendarContract.Calendars.CALENDAR_DISPLAY_NAME },
+				null, null, null);
+		// Get all the enabled calendars in the database
+		while (cursor != null && cursor.moveToNext()) {
+			AndroidCalendar current = new AndroidCalendar(cursor.getString(0),
+					getColorHex(cursor.getString(1)), cursor.getString(2));
+			if (!calendars.contains(current)) {
+				calendars.add(current);
 			}
 		}
+		if (cursor != null) {
+			cursor.close();
+		}
+
 		return calendars;
 	}
-	
+
 	/**
 	 * Retrieves the selected calendars from the SharedPreferences with the given key
 	 * 
@@ -221,22 +223,19 @@ public class CalendarUtilities {
 		Set<AndroidCalendar> calsFromPref = new HashSet<AndroidCalendar>();
 		SharedPreferences pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_READABLE);
 		String string = pref.getString(Constants.CAL_PREFS, null);
-		
+
 		if (string != null) {
 			List<String> selectedIds = Arrays.asList(string.split("~"));
 			for (AndroidCalendar c : getAvailableCalendars()) {
-				if (selectedIds.contains(c.getContentProvider() + "," + c.getId())) {
+				if (selectedIds.contains(c.getId())) {
 					calsFromPref.add(c);
 				}
 			}
-		} 
-//		else {
-//			throw new NoSuchElementException("There isn't a preference with the name " + prefName);
-//		}
-		
+		}
+
 		return calsFromPref;
 	}
-	
+
 	/**
 	 * Save the list of selected calendars in a SharedPreference with the
 	 * given key
@@ -247,19 +246,17 @@ public class CalendarUtilities {
 	public void saveSelectedCalendarsPref(String prefName) {
 		StringBuilder selectedCalsInfo = new StringBuilder();
 		for (AndroidCalendar c : selectedCalendars) {
-			selectedCalsInfo.append(c.getContentProvider());
-			selectedCalsInfo.append(",");
 			selectedCalsInfo.append(c.getId());
 			selectedCalsInfo.append("~");
 		}
-		
+
 		// Save the package name in the preferences
 		SharedPreferences pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_WRITEABLE);
 		Editor edit = pref.edit();
 		edit.putString(Constants.CAL_PREFS, selectedCalsInfo.toString());
 		edit.commit();
 	}
-	
+
 	/**
 	 * Set the selected calendars for this instance
 	 * 
@@ -269,7 +266,7 @@ public class CalendarUtilities {
 	public void setSelectedCalendars(Set<AndroidCalendar> selected) {
 		selectedCalendars = selected;
 	}
-	
+
 	/**
 	 * Gets the selected calendars for this instance
 	 * 
@@ -279,7 +276,7 @@ public class CalendarUtilities {
 	public Set<AndroidCalendar> getSelectedCalendars() {
 		return selectedCalendars;
 	}
-	
+
 	/**
 	 * Gets the event data (the current time through numDays past now)
 	 * from the user's enabled calendars.
@@ -292,7 +289,7 @@ public class CalendarUtilities {
 	public Collection<Event> getCalendarData(int numDays, boolean showCurrentEvent) {
 		// Using a PriorityQueue for the events because it sorts them as you add them
 		PriorityQueue<Event> events = new PriorityQueue<Event>();
-		
+
 		// For each calendar, get the events after the current time
 		for (AndroidCalendar cal : selectedCalendars) {
 			events.addAll(getEventDataFromCalendar(cal, numDays, showCurrentEvent));
@@ -300,10 +297,10 @@ public class CalendarUtilities {
 
 		ArrayList<Event> sorted = new ArrayList<Event>(events);
 		Collections.sort(sorted);
-		
+
 		return sorted;
 	}
-	
+
 	/**
 	 * The color data the calendar stores is an int. We want it in hex so that
 	 * we can compare it to the data Google has posted in their API. So we convert
@@ -319,7 +316,7 @@ public class CalendarUtilities {
 		if (color == null) {
 			return "";
 		}
-		
+
 		try {
 			int hex = Integer.parseInt(color);
 			hex &= 0x00FFFFFF;
@@ -329,7 +326,7 @@ public class CalendarUtilities {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * Actually get the events from the given calendar
 	 * 
@@ -345,8 +342,8 @@ public class CalendarUtilities {
 		GregorianCalendar todayDate = new GregorianCalendar();
 		todayDate.setTimeInMillis(System.currentTimeMillis());
 		PriorityQueue<Event> events = new PriorityQueue<Event>();
-		
-		Uri.Builder builder = Uri.parse(cal.getContentProvider() + "/instances/when").buildUpon();
+
+		Uri.Builder builder = CalendarContract.Instances.CONTENT_URI.buildUpon();
 		GregorianCalendar today = new GregorianCalendar();
 		long now = todayDate.getTimeInMillis();
 		long temp = today.getTimeInMillis() - (today.get(GregorianCalendar.HOUR_OF_DAY) * DateUtils.HOUR_IN_MILLIS);
@@ -354,21 +351,18 @@ public class CalendarUtilities {
 		ContentUris.appendId(builder, temp + numDays * DateUtils.DAY_IN_MILLIS);
 
 		Cursor cursor = null;
-		
+
 		try {
-			cursor = context.getContentResolver().query(builder.build(), new String[] { "title", "begin", "end", "allDay", "eventLocation", "event_id"}, 
-					"Calendars._id=" + cal.getId(),	null, "startDay ASC, startMinute ASC");
+			cursor = context.getContentResolver().query(builder.build(),
+					new String[] { CalendarContract.Instances.TITLE, CalendarContract.Instances.BEGIN,
+				CalendarContract.Instances.END, CalendarContract.Instances.ALL_DAY,
+				CalendarContract.Instances.EVENT_LOCATION, CalendarContract.Instances.EVENT_ID },
+				CalendarContract.Events.CALENDAR_ID + "=" + cal.getId(), null,
+				CalendarContract.Instances.START_DAY + " ASC, " + CalendarContract.Instances.START_MINUTE + " ASC");
 		} catch (SQLiteException e) {
 			Log.d(Constants.TAG, e.getMessage());
-			try {
-				cursor = context.getContentResolver().query(builder.build(), new String[] { "title", "begin", "end", "allDay", "eventLocation", "event_id"}, 
-						"calendar_id=" + cal.getId(), null, "startDay ASC, startMinute ASC");
-			} catch (SQLiteException ex) {
-				Log.d(Constants.TAG, e.getMessage());
-				throw ex;
-			}
 		}
-		
+
 
 		while (cursor != null && cursor.moveToNext()) {
 			GregorianCalendar begin = new GregorianCalendar();
@@ -376,16 +370,16 @@ public class CalendarUtilities {
 			GregorianCalendar end = new GregorianCalendar();
 			end.setTimeInMillis(cursor.getLong(2));
 			boolean allDay = !cursor.getString(3).equals("0");
-			
+
 			// All day events have times that are off by the Timezone offset, so we
 			// need to fix that to get it to display correctly in the list and on the widget
 			if (allDay) {
 				fixAllDayEvent(begin, end);
 			}
-			
+
 			if ((begin.after(todayDate) && !showCurrentEvent) || (showCurrentEvent && end.after(todayDate))) {
-				events.add(new Event(cursor.getString(0), begin, end, allDay, cal.getColor(), 
-						(cursor.getString(4) == null ? "" : cursor.getString(4)), cursor.getInt(5), cal.getContentProvider()));
+				events.add(new Event(cursor.getString(0), begin, end, allDay, cal.getColor(),
+						(cursor.getString(4) == null ? "" : cursor.getString(4)), cursor.getInt(5)));
 			}
 		}
 		if (cursor != null) {
@@ -393,13 +387,13 @@ public class CalendarUtilities {
 		}
 		return events;
 	}
-	
+
 	/**
 	 * Oftentimes all-day events have messed up starting times, which can cause
-	 * them to be displayed before events that happen in the previous day. 
+	 * them to be displayed before events that happen in the previous day.
 	 * 
-	 * The times are usually off by the Timezone offset, so we should be able 
-	 * to just subtract the offset from the given event time, and it should be 
+	 * The times are usually off by the Timezone offset, so we should be able
+	 * to just subtract the offset from the given event time, and it should be
 	 * all fixed.
 	 * 
 	 * @param event
@@ -409,32 +403,16 @@ public class CalendarUtilities {
 		long milliseconds = eventStart.getTimeInMillis();
 		milliseconds -= eventStart.getTimeZone().getRawOffset();
 		eventStart.setTimeInMillis(milliseconds);
-		
+
 		milliseconds = eventEnd.getTimeInMillis();
 		milliseconds -= eventEnd.getTimeZone().getRawOffset();
 		eventEnd.setTimeInMillis(milliseconds - 1000);
 	}
-	
-	/**
-	 * Gets a list of the possible content providers (the "address" of the calendar database)
-	 * 
-	 * @return
-	 * The content provider for the calendar data
-	 */
-	private static List<String> getContentProviders() {
-		List<String> providers = new ArrayList<String>();
-		providers.add(String.format(CalendarUtilities.CONTENT_PROVIDER, "com.android.calendar")); // 2.2 and higher
-		providers.add(String.format(CalendarUtilities.CONTENT_PROVIDER, "calendar")); // below 2.2
-		providers.add(String.format(CalendarUtilities.CONTENT_PROVIDER, "calendarEx")); //Motorola Exchange
-		providers.add(String.format(CalendarUtilities.CONTENT_PROVIDER, "com.android.providers.calendar")); //Samsung...?
-		
-		return providers;
-	}
-	
+
 	/**
 	 * Gets the resourceId of for the given color.  If we don't have a record of the
 	 * given color, we default to blue.
-	 *  
+	 * 
 	 * @param color
 	 * The color to get the resource id of
 	 * @return
@@ -447,11 +425,11 @@ public class CalendarUtilities {
 			return colorBarResources.get("060d5e");
 		}
 	}
-	
+
 	/**
 	 * Gets the resourceId of for the given color.  If we don't have a record of the
 	 * given color, we default to blue.
-	 *  
+	 * 
 	 * @param color
 	 * The color to get the resource id of
 	 * @return
@@ -464,7 +442,7 @@ public class CalendarUtilities {
 			return colorCalendarResources.get("060d5e");
 		}
 	}
-	
+
 	/**
 	 * Gets the time of the start and end of the given event, formatted in this manner:
 	 * "All Day" if the event is an all day event
@@ -478,12 +456,12 @@ public class CalendarUtilities {
 	public String getFormattedTimeString(Context ctx, Event d) {
 		GregorianCalendar todayDate = new GregorianCalendar();
 		todayDate.setTimeInMillis(System.currentTimeMillis());
-		
+
 		Date startDate = d.getStart().getTime();
 		Date endDate = d.getEnd().getTime();
-		
+
 		SimpleDateFormat formatter;
-		
+
 		if (d.isAllDay()) {
 			return ctx.getResources().getString(R.string.allDay);
 		} else if (use24Hour){
@@ -491,17 +469,17 @@ public class CalendarUtilities {
 		} else {
 			formatter = new SimpleDateFormat("h:mm a");
 		}
-		
+
 		String startString = formatter.format(startDate);
 		String endString = formatter.format(endDate);
-		
+
 		if (d.getStart().before(todayDate) && d.getEnd().after(todayDate)) {
 			return ctx.getResources().getString(R.string.now) + " - " + endString;
 		} else {
 			return startString + " - " + endString;
 		}
 	}
-	
+
 	/**
 	 * Formats the given Event's date as: <br />
 	 * {Month} {Day}
@@ -516,9 +494,9 @@ public class CalendarUtilities {
 		SimpleDateFormat formatter = new SimpleDateFormat(formatString);
 		return formatter.format(date);
 	}
-	
+
 	/**
-	 * Figures out whether the given Event is today or tomorrow.  If neither, 
+	 * Figures out whether the given Event is today or tomorrow.  If neither,
 	 * returns the formatted date string.
 	 * 
 	 * @param d
@@ -529,14 +507,14 @@ public class CalendarUtilities {
 	public static String getDateString(Context ctx, Event d) {
 		return getDateString(ctx, d, null);
 	}
-	
+
 	public static String getDateString(Context ctx, Event d, String formatString) {
 		GregorianCalendar now = new GregorianCalendar();
 		now.setTimeInMillis(System.currentTimeMillis());
 
 		// If event's start date is current date + 1, or the event's start date is 1 (beginning of new year)
 		// and today is the maximum day of year, we return tomorrow.
-		if (d.getStart().get(Calendar.DAY_OF_YEAR) == (now.get(Calendar.DAY_OF_YEAR) + 1) || 
+		if (d.getStart().get(Calendar.DAY_OF_YEAR) == (now.get(Calendar.DAY_OF_YEAR) + 1) ||
 				(now.get(Calendar.DAY_OF_YEAR) == now.getActualMaximum(Calendar.DAY_OF_YEAR) && d.getStart().get(Calendar.DAY_OF_YEAR) == 1)) {
 			return ctx.getResources().getString(R.string.tomorrow);
 		} else if (d.getStart().get(Calendar.DAY_OF_YEAR) == now.get(Calendar.DAY_OF_YEAR)) {

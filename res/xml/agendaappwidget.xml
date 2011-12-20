@@ -15,6 +15,6 @@
 -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
 	android:initialLayout="@layout/agenda"
-	android:updatePeriodMillis="900000" android:minHeight="72dp"
-	android:minWidth="280dp" android:configure="org.reber.agenda.AgendaConfigure">
+	android:updatePeriodMillis="900000" android:minHeight="40dp"
+	android:minWidth="250dp" android:configure="org.reber.agenda.AgendaConfigure">
 </appwidget-provider>

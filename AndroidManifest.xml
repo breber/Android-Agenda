@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.reber.agenda" android:versionName="1.2.1" android:versionCode="20">
+	package="org.reber.agenda" android:versionName="2" android:versionCode="20">
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14"></uses-sdk>
 	<application android:icon="@drawable/icon" android:label="@string/appName">
-		<activity android:name=".MainApp" android:label="@string/appName" android:configChanges="keyboardHidden|orientation">
+		<activity android:name=".AgendaActivity" android:label="@string/appName" android:configChanges="keyboardHidden|orientation">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".HCAgendaActivity" android:label="@string/appName" android:configChanges="keyboardHidden|orientation"></activity>
-		<activity android:name=".AgendaActivity" android:label="@string/appName" android:configChanges="keyboardHidden|orientation"></activity>
 		<activity android:name=".SettingsActivity" android:label="@string/appSettings" android:configChanges="keyboardHidden|orientation">
 			<intent-filter>
 				<action android:name="android.intent.action.CHOOSER" />
@@ -31,6 +31,4 @@
 				android:resource="@xml/agendaappwidget" />
 		</receiver>
 	</application>
-	<uses-permission android:name="android.permission.READ_CALENDAR"></uses-permission>
-	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="11"></uses-sdk>
 </manifest> 

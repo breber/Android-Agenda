@@ -115,14 +115,6 @@ public class AgendaActivity extends FragmentActivity {
 		return super.onPrepareOptionsMenu(menu);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onMenuOpened(int, android.view.Menu)
-	 */
-	@Override
-	public boolean onMenuOpened(int featureId, Menu menu) {
-		return super.onMenuOpened(featureId, menu);
-	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
@@ -132,7 +124,7 @@ public class AgendaActivity extends FragmentActivity {
 		} else if (id == R.id.chooseSettings) {
 			Intent temp = new Intent(Intent.ACTION_CHOOSER);
 			temp.setClass(this, SettingsActivity.class);
-			startActivityForResult(temp, 10000);
+			startActivity(temp);
 		} else if (id == R.id.newEventMenuItem) {
 			Intent intent = new Intent(Intent.ACTION_EDIT);
 			intent.setType("vnd.android.cursor.item/event");

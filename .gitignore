@@ -3,3 +3,4 @@
 *.dex
 *.ap_
 gen/
+bin/

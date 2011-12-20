@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
@@ -121,7 +122,7 @@ public class AgendaListFragment extends ListFragment {
 			}
 
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(ev.getContentProvider() + "events/" + ev.getId()));
+			intent.setData(Uri.parse(CalendarContract.Events.CONTENT_URI + "/" + ev.getId()));
 			// Who knows why you need to put the start and end times in the intent,
 			// but for some reason you need to for the com.android.calendar app...
 			intent.putExtra("beginTime", ev.getStart().getTimeInMillis());

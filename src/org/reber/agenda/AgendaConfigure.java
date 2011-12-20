@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -39,12 +39,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
@@ -53,25 +50,24 @@ import android.widget.Toast;
 
 /**
  * This is the Activity that shows up when the user first says
- * they want to add our Agenda widget to the homescreen.  It is 
+ * they want to add our Agenda widget to the homescreen.  It is
  * used to configure the widget to act how they want it to.
  * 
  * @author brianreber
  */
 public class AgendaConfigure extends Activity {
 	private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-	
+
 	private static ArrayList<String> textSizes;
-	
+
 	private int textColor;
 	private int bgColor;
 	private int transparency;
 	private int numDays;
 	private CalendarUtilities util;
-	
+
 	// UI Elements
 	private Spinner appsSpinner;
-	private Spinner textSizesSpinner;
 	private Button configOkButton;
 	private ImageView textColorSwatch;
 	private ImageView bgColorSwatch;
@@ -79,64 +75,40 @@ public class AgendaConfigure extends Activity {
 	private Button textColorButton;
 	private Button bgColorButton;
 	private TextView numDaysTextView;
-	private CheckBox multipleEventsCheckBox;
 	private CheckBox twentyFourHourCheckBox;
 	private SeekBar transparencySeekBar;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.configure);
-		
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mAppWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 		}
-		
+
 		// If they gave us an intent without the widget id, just bail.
 		if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
 			finish();
 		}
-		
+
 		initializeUIElementVars();
-		
+
 		textColor = getResources().getColor(R.color.white);
 		bgColor = getResources().getColor(R.color.black);
-		
+
 		// Prevent auto opening of keyboard
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		
+
 		// Set the list of proposed apps for the click handler
 		appsSpinner.setAdapter(new PackageListAdapter(this, android.R.layout.simple_dropdown_item_1line));
-		
-		// Set the list of text sizes
-		textSizesSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, textSizes));
-		
+
 		configOkButton.setOnClickListener(configOkButtonOnClickListener);
 
 		SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, Context.MODE_WORLD_READABLE);
 		util = new CalendarUtilities(this, pref.getBoolean(Constants.Widget.USE_24_HR, false));
-		
-		if (!AgendaWidgetProvider.canUseBGColor()) {
-			try {
-				// Try to completely hide the disabled items
-				RelativeLayout rel = (RelativeLayout) findViewById(R.id.widgetToHideIfNoBG);
-				rel.setVisibility(View.INVISIBLE);
-				
-				TextView tv = (TextView) findViewById(R.id.textSize);
-				LayoutParams params = (LayoutParams) tv.getLayoutParams();
-				params.addRule(RelativeLayout.BELOW, R.id.widgetTextColorButton);
-				tv.setLayoutParams(params);
-			} catch (Exception e) {
-				// If for some reason that fails, just disable the buttons
-				RelativeLayout rel = (RelativeLayout) findViewById(R.id.widgetBGColorRelativeLayout);
-				rel.setEnabled(false);
-				Button but = (Button) findViewById(R.id.widgetBGColorButton);
-				but.setEnabled(false);
-				transparencySeekBar.setEnabled(false);
-			}
-		}
-		
+
 		chooseCalendarsButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -159,10 +131,10 @@ public class AgendaConfigure extends Activity {
 						AgendaWidgetProvider.saveUtil(util);
 					}
 				});
-				dlg.show();			
+				dlg.show();
 			}
 		});
-		
+
 		textColorButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -177,7 +149,7 @@ public class AgendaConfigure extends Activity {
 				dlg.show();
 			}
 		});
-		
+
 		bgColorButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -192,23 +164,23 @@ public class AgendaConfigure extends Activity {
 				dlg.show();
 			}
 		});
-		
+
 		transparencySeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) { }
-			
+
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {	}
-			
+
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				transparency = progress;
 			}
 		});
-		
+
 		setValuesBasedOnPrefs();
 	}
-	
+
 	/**
 	 * Initialize the member variables for the UI elements
 	 */
@@ -217,32 +189,30 @@ public class AgendaConfigure extends Activity {
 		textSizes.add(getResources().getString(R.string.large));
 		textSizes.add(getResources().getString(R.string.medium));
 		textSizes.add(getResources().getString(R.string.small));
-		
+
 		appsSpinner = (Spinner) findViewById(R.id.recommendedapps);
-		textSizesSpinner = (Spinner) findViewById(R.id.textSizeSpinner);
 		configOkButton = (Button) findViewById(R.id.enablewidgets);
 		textColorSwatch = (ImageView) findViewById(R.id.widgetTextColorSwatch);
 		bgColorSwatch = (ImageView) findViewById(R.id.widgetBGColorSwatch);
 		chooseCalendarsButton = (Button) findViewById(R.id.widgetChooseCalsButton);
 		textColorButton = (Button) findViewById(R.id.widgetTextColorButton);
 		bgColorButton = (Button) findViewById(R.id.widgetBGColorButton);
-		multipleEventsCheckBox = (CheckBox) findViewById(R.id.widgetShowMultipleEvents);
 		twentyFourHourCheckBox = (CheckBox) findViewById(R.id.widgetUse24Hour);
 		transparencySeekBar = (SeekBar) findViewById(R.id.widgetTransparencyBar);
 		transparencySeekBar.setMax(0xFF);
-		
+
 		numDaysTextView = (TextView) findViewById(R.id.widgetNumDays);
 	}
-	
+
 	/**
 	 * Set the values of the UI elements with the proper values from the
 	 * preferences for the widget.
 	 */
 	private void setValuesBasedOnPrefs() {
 		SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, Context.MODE_WORLD_READABLE);
-		
+
 		int selection = 0;
-		
+
 		// START APP SPINNER
 		String temp = pref.getString(Constants.Widget.PACKAGE_NAME, "");
 		for (int i = 0; i < appsSpinner.getCount(); i++) {
@@ -253,58 +223,42 @@ public class AgendaConfigure extends Activity {
 		}
 		appsSpinner.setSelection(selection);
 		// END APP SPINNER
-		
+
 		// START TEXT COLOR
 		textColor = pref.getInt(Constants.Widget.TEXT_COLOR, getResources().getColor(R.color.white));
 		textColorSwatch.setBackgroundColor(textColor);
 		// END TEXT COLOR
-		
+
 		// START BG COLOR
 		bgColor = pref.getInt(Constants.Widget.BG_COLOR, getResources().getColor(R.color.black));
 		bgColorSwatch.setBackgroundColor(bgColor);
 		// END BG COLOR
-		
+
 		// START TRANSPARENCY
 		transparency = pref.getInt(Constants.Widget.TRANSPARENCY, transparencySeekBar.getMax() / 2);
 		transparencySeekBar.setProgress(transparency);
 		// END TRANSPARENCY
-		
-		// START TEXT SIZE SPINNER
-		selection = 0;
-		temp = pref.getString(Constants.Widget.TEXT_SIZE, "");
-		for (int i = 0; i < textSizesSpinner.getCount(); i++) {
-			if (temp.equals(((String) textSizesSpinner.getItemAtPosition(i)))) {
-				selection = i;
-				break;
-			}
-		}
-		textSizesSpinner.setSelection(selection);
-		// END TEXT SIZE SPINNER
-		
+
 		// START NUM DAYS
 		numDays = pref.getInt(Constants.Widget.NUM_DAYS, 2);
 		numDaysTextView.setText(numDays + "");
 		// END NUM DAYS
-		
-		// START MULTIPLE EVENTS
-		multipleEventsCheckBox.setChecked(pref.getBoolean(Constants.Widget.MULTIPLE_EVENTS, false));
-		// END MULTIPLE EVENTS
-		
+
 		// START 24-HOUR TIME
 		twentyFourHourCheckBox.setChecked(pref.getBoolean(Constants.Widget.USE_24_HR, false));
 		// END 24-HOUR TIME
 	}
-	
+
 	private Button.OnClickListener configOkButtonOnClickListener = new Button.OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
 			String str = numDaysTextView.getText().toString();
 			int numDaysInt = 2;
-			
+
 			if (str != null && !str.equals("")) {
 				try {
 					numDaysInt = Integer.parseInt(str);
-					
+
 					if (numDaysInt <= 0) {
 						throw new NumberFormatException();
 					}
@@ -313,7 +267,7 @@ public class AgendaConfigure extends Activity {
 					return;
 				}
 			}
-			
+
 			// Save the package name in the preferences
 			SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, MODE_WORLD_WRITEABLE);
 			Editor edit = pref.edit();
@@ -322,13 +276,11 @@ public class AgendaConfigure extends Activity {
 			edit.putInt(Constants.Widget.TEXT_COLOR, textColor);
 			edit.putInt(Constants.Widget.TRANSPARENCY, transparency);
 			edit.putBoolean(Constants.Widget.USE_24_HR, twentyFourHourCheckBox.isChecked());
-			edit.putBoolean(Constants.Widget.MULTIPLE_EVENTS, multipleEventsCheckBox.isChecked());
 			edit.putInt(Constants.Widget.VERSION, getResources().getIntArray(R.array.versions)[0]);
 			edit.putInt(Constants.Widget.NUM_DAYS, numDaysInt);
-			edit.putString(Constants.Widget.TEXT_SIZE, textSizesSpinner.getSelectedItem().toString());
 			edit.commit();
 			util.setUse24Hour(twentyFourHourCheckBox.isChecked());
-			
+
 			AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(AgendaConfigure.this);
 			AgendaWidgetProvider.updateAppWidget(AgendaConfigure.this, appWidgetManager, mAppWidgetId, 0);
 
@@ -338,7 +290,7 @@ public class AgendaConfigure extends Activity {
 			widgetUpdate.setAction(AgendaWidgetProvider.WIDGET_UPDATE);
 			widgetUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { mAppWidgetId });
 			sendBroadcast(widgetUpdate);
-			
+
 			// Actually show the widget
 			Intent resultValue = new Intent();
 			resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
@@ -346,7 +298,7 @@ public class AgendaConfigure extends Activity {
 			finish();
 		}
 	};
-	
+
 	/**
 	 * Sets a recurring alarm for the given appwidget id.
 	 * 
@@ -363,10 +315,10 @@ public class AgendaConfigure extends Activity {
 		AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
 		// Set it to update every 14 mins
 		alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + 3000, 14 * 60 * 1000, pendingIntent);
-		
+
 		AgendaWidgetProvider.addIdToAlarm(ctx, mAppWidgetId);
 	}
-	
+
 	/**
 	 * Removes a recurring alarm for the given appwidget id.
 	 * 
@@ -382,7 +334,7 @@ public class AgendaConfigure extends Activity {
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, mAppWidgetId, widgetUpdate, 0);
 		AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
 		alarmManager.cancel(pendingIntent);
-		
+
 		AgendaWidgetProvider.removeIdFromList(ctx, mAppWidgetId);
 	}
 }

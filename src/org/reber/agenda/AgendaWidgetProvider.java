@@ -33,7 +33,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -111,8 +110,6 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		int transparency = pref.getInt(Constants.Widget.TRANSPARENCY, 0xFF000000);
 		int widgetVersion = pref.getInt(Constants.Widget.VERSION, 0);
 		int numDays = pref.getInt(Constants.Widget.NUM_DAYS, 2);
-		boolean clickToShowDiffEvent = pref.getBoolean(Constants.Widget.MULTIPLE_EVENTS, false);
-		String widgetTextSize = pref.getString(Constants.Widget.TEXT_SIZE, "Large");
 
 		bgColor &= 0x00FFFFFF;
 		bgColor |= (transparency << 24);
@@ -138,19 +135,10 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 
 
 		// Get the layout for the App Widget and attach an on-click listener to the button
-		RemoteViews views;
-		if (widgetTextSize.equals(context.getResources().getString(R.string.large))) {
-			views = new RemoteViews(context.getPackageName(), R.layout.agenda);
-		} else if (widgetTextSize.equals(context.getResources().getString(R.string.small))) {
-			views = new RemoteViews(context.getPackageName(), R.layout.agenda_small);
-		} else {
-			views = new RemoteViews(context.getPackageName(), R.layout.agenda_medium);
-		}
+		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.agenda);;
 		views.setTextViewText(R.id.day_agenda, currentDate.getDate()+"");
 		views.setTextViewText(R.id.month_agenda, CalendarUtilities.monthFormat.format(currentDate));
-		if (canUseBGColor()) {
-			views.setInt(R.id.agenda_frame, "setBackgroundColor", bgColor);
-		}
+		views.setInt(R.id.agenda_frame, "setBackgroundColor", bgColor);
 		setTextColor(views, textColor);
 
 		Collection<Event> events = null;
@@ -177,25 +165,8 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		}
 		events = util.getCalendarData(numDays, false);
 
-		if (clickToShowDiffEvent) {
-			int nextPos = eventPos + 1;
-			if (nextPos > events.size() - 1) {
-				nextPos = 0;
-			}
-			Intent intentSwitchEvent = new Intent();
-			intentSwitchEvent.setAction(WIDGET_NEXT_EVENT);
-			intentSwitchEvent.putExtra(NEXT_POS_EXTRA, nextPos);
-			intentSwitchEvent.putExtra(WIDGET_ID_EXTRA, appWidgetId);
-			PendingIntent pendingIntentSwitchEvent = PendingIntent.getBroadcast(context, appWidgetId + nextPos * 31, intentSwitchEvent, 0);
-
-			views.setOnClickPendingIntent(R.id.text_frame, pendingIntentSwitchEvent);
-			if (pendingIntent != null) {
-				views.setOnClickPendingIntent(R.id.image_frame, pendingIntent);
-			}
-		} else {
-			if (pendingIntent != null) {
-				views.setOnClickPendingIntent(R.id.agenda_frame, pendingIntent);
-			}
+		if (pendingIntent != null) {
+			views.setOnClickPendingIntent(R.id.agenda_frame, pendingIntent);
 		}
 
 		if (context.getResources().getIntArray(R.array.versions)[0] > widgetVersion) {
@@ -229,10 +200,6 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 			}
 
 			String tomorrow = CalendarUtilities.getDateString(context, first);
-			if (clickToShowDiffEvent && tomorrow.contains(context.getResources().getText(R.string.tomorrow))) {
-				tomorrow = tomorrow.replace(context.getResources().getText(R.string.tomorrow), context.getResources().getText(R.string.tomorrowAbbreviation));
-			}
-
 			String location = first.getLocation();
 			// If there is no location, we want to center the stuff on the widget
 			if (location == null || (location != null && location.equals(""))) {
@@ -243,26 +210,8 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 						util.getFormattedTimeString(context, first));
 
 				views.setTextViewText(R.id.item_title_no_loc, first.getTitle());
-				if (clickToShowDiffEvent) {
-					if (events.size() > 1) {
-						views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
-						views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.VISIBLE);
-					} else {
-						views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
-						views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.INVISIBLE);
-					}
-					views.setViewVisibility(R.id.event_num_no_loc, View.VISIBLE);
-					views.setTextViewText(R.id.event_num_no_loc, (eventPos + 1) + "/" + events.size());
-
-					Intent widgetUpdate = new Intent();
-					widgetUpdate.setAction(AgendaWidgetProvider.WIDGET_UPDATE);
-					widgetUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
-					PendingIntent pendingIntentUpdate = PendingIntent.getBroadcast(context, appWidgetId * 31, widgetUpdate, 0);
-					views.setOnClickPendingIntent(R.id.widgetGoBackToFirst, pendingIntentUpdate);
-				} else {
-					views.setViewVisibility(R.id.event_num_no_loc, View.INVISIBLE);
-					views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.INVISIBLE);
-				}
+				views.setViewVisibility(R.id.event_num_no_loc, View.INVISIBLE);
+				views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.INVISIBLE);
 			} else {
 				views.setViewVisibility(R.id.event_view_text_no_loc, View.INVISIBLE);
 				views.setViewVisibility(R.id.event_view_text, View.VISIBLE);
@@ -272,25 +221,8 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 						util.getFormattedTimeString(context, first));
 
 				views.setTextViewText(R.id.item_title, first.getTitle());
-				if (clickToShowDiffEvent) {
-					views.setViewVisibility(R.id.event_num, View.VISIBLE);
-					views.setTextViewText(R.id.event_num, (eventPos + 1) + "/" + events.size());
-					if (events.size() > 1) {
-						views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.INVISIBLE);
-						views.setViewVisibility(R.id.widgetGoBackToFirst, View.VISIBLE);
-					} else {
-						views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.INVISIBLE);
-						views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
-					}
-					Intent widgetUpdate = new Intent();
-					widgetUpdate.setAction(AgendaWidgetProvider.WIDGET_UPDATE);
-					widgetUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
-					PendingIntent pendingIntentUpdate = PendingIntent.getBroadcast(context, appWidgetId * 31, widgetUpdate, 0);
-					views.setOnClickPendingIntent(R.id.widgetGoBackToFirstNoLoc, pendingIntentUpdate);
-				} else {
-					views.setViewVisibility(R.id.event_num, View.INVISIBLE);
-					views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
-				}
+				views.setViewVisibility(R.id.event_num, View.INVISIBLE);
+				views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
 			}
 
 			views.setImageViewResource(R.id.calendar_item, CalendarUtilities.getColorCalendarResource(first.getColor()));
@@ -370,16 +302,5 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	 */
 	public static void saveUtil(CalendarUtilities utl) {
 		util = utl;
-	}
-
-	/**
-	 * Android version 2.1 and lower can't set the background color of the widget
-	 * programmatically, so we want to disable it.
-	 * 
-	 * @return
-	 * Whether this phone can set the background color of a widget
-	 */
-	public static boolean canUseBGColor() {
-		return Build.VERSION.SDK_INT > 7;
 	}
 }

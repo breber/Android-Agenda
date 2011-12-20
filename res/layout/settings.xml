@@ -14,44 +14,90 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="fill_parent"
-	android:id="@+id/settingsLayout">
-	<LinearLayout android:focusable="true" android:focusableInTouchMode="true"
-    	android:layout_width="0px" android:layout_height="0px"/>
-	<ScrollView android:id="@+id/scrollview" android:layout_height="fill_parent" 
-		android:layout_width="fill_parent" android:layout_above="@+id/saveAppSettings"
-		android:layout_alignTop="@+id/settingsLayout">
-		<RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:padding="5dip">
-			<TextView android:id="@+id/chooseCalendarsLabel"
-				android:layout_height="wrap_content" android:layout_width="fill_parent"
-				android:text="@string/chooseCalendars" android:textSize="16sp" android:paddingBottom="5dip"></TextView>
-		
-			<Button android:layout_below="@+id/chooseCalendarsLabel"
-				android:text="@string/chooseCalendars" android:id="@+id/appChooseCalsButton"
-				android:layout_height="wrap_content" android:layout_width="fill_parent"></Button>
-		
-			<TextView android:id="@+id/numDaysLabel" android:text="@string/numDaysToDisplay"
-				android:layout_height="wrap_content" android:layout_width="wrap_content"
-				android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
-				android:layout_below="@+id/appChooseCalsButton"></TextView>
-			<EditText android:id="@+id/numDays" android:hint="@string/numDaysHint7"
-				android:layout_height="wrap_content" android:layout_width="fill_parent"
-				android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
-				android:layout_below="@+id/numDaysLabel" android:singleLine="true"
-				android:inputType="number" android:layout_marginBottom="5dip"
-				android:nextFocusUp="@+id/text" android:nextFocusLeft="@+id/text"></EditText>
-		
-			<CheckBox android:id="@+id/appUse24Hour" android:text="@string/use24Hour"
-				android:layout_below="@+id/numDays"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-			
-			<CheckBox android:id="@+id/appEnableClick" android:text="@string/enableClick"
-				android:layout_below="@+id/appUse24Hour"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></CheckBox>
-		</RelativeLayout>
-	</ScrollView>
-	<Button android:text="@string/ok" android:id="@+id/saveAppSettings"
-		android:layout_marginTop="5dip" android:layout_marginBottom="5dip"  android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:layout_alignParentBottom="true"></Button>
+    android:id="@+id/settingsLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent" >
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/saveAppSettings"
+        android:layout_alignTop="@+id/settingsLayout" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+
+            <TextView
+                android:id="@+id/chooseCalendarsLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dip"
+                android:text="@string/chooseCalendars"
+                android:textSize="16sp" >
+            </TextView>
+
+            <Button
+                android:id="@+id/appChooseCalsButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chooseCalendarsLabel"
+                android:text="@string/chooseCalendars" >
+            </Button>
+
+            <TextView
+                android:id="@+id/numDaysLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appChooseCalsButton"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:text="@string/numDaysToDisplay" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/numDays"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/numDaysLabel"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:hint="@string/numDaysHint7"
+                android:inputType="number"
+                android:nextFocusLeft="@+id/text"
+                android:nextFocusUp="@+id/text"
+                android:singleLine="true" >
+            </EditText>
+
+            <CheckBox
+                android:id="@+id/appUse24Hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/numDays"
+                android:text="@string/use24Hour" >
+            </CheckBox>
+
+            <CheckBox
+                android:id="@+id/appEnableClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/appUse24Hour"
+                android:text="@string/enableClick" >
+            </CheckBox>
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/saveAppSettings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:text="@string/ok" >
+    </Button>
+
 </RelativeLayout>

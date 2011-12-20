@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -20,7 +20,7 @@ package org.reber.agenda.util;
  */
 public class Constants {
 	public static String TAG = "CAL_WID";
-	
+
 	public static String CAL_PREFS = "Calendars";
 
 	public static class Widget {
@@ -33,10 +33,8 @@ public class Constants {
 		public static String NUM_DAYS = "NumberDays";
 		public static String USE_24_HR = "24Hour";
 		public static String WIDGET_IDS = "WidgetIds";
-		public static String MULTIPLE_EVENTS = "WidgetSwitchEvent";
-		public static String TEXT_SIZE = "WidgetTextSize";
 	}
-	
+
 	public static class AgendaList {
 		public static String VERSION = "AgendaActivityVersion";
 		public static String APP_PREFS = "AppPrefs";

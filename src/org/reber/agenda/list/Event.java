@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -39,9 +39,8 @@ public class Event extends ListItem {
 	private boolean allDay;
 	private String color;
 	private String location;
-	private String contentProvider;
 	private int id;
-	
+
 	/**
 	 * Creates an event with the given values.
 	 * 
@@ -58,7 +57,7 @@ public class Event extends ListItem {
 	 * @param location
 	 * The location of the event
 	 */
-	public Event(String title, GregorianCalendar start, GregorianCalendar end, boolean allDay, String color, String location, int id, String contentProvider) {
+	public Event(String title, GregorianCalendar start, GregorianCalendar end, boolean allDay, String color, String location, int id) {
 		this.title = title;
 		this.start = start;
 		this.end = end;
@@ -66,9 +65,8 @@ public class Event extends ListItem {
 		this.color = color;
 		this.location = location;
 		this.id = id;
-		this.contentProvider = contentProvider;
 	}
-	
+
 	/**
 	 * Gets the location of this event
 	 * 
@@ -77,7 +75,7 @@ public class Event extends ListItem {
 	public String getLocation() {
 		return location;
 	}
-	
+
 	/**
 	 * Sets the location of this event
 	 * 
@@ -86,7 +84,7 @@ public class Event extends ListItem {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
+
 	/**
 	 * Gets the color of this event
 	 * 
@@ -95,7 +93,7 @@ public class Event extends ListItem {
 	public String getColor() {
 		return color;
 	}
-	
+
 	/**
 	 * Sets the color of this event
 	 * 
@@ -104,7 +102,7 @@ public class Event extends ListItem {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
+
 	/**
 	 * Gets the starting date
 	 * 
@@ -113,7 +111,7 @@ public class Event extends ListItem {
 	public GregorianCalendar getStart() {
 		return start;
 	}
-	
+
 	/**
 	 * Sets the starting date
 	 * 
@@ -122,7 +120,7 @@ public class Event extends ListItem {
 	public void setStart(GregorianCalendar start) {
 		this.start = start;
 	}
-	
+
 	/**
 	 * Gets the ending date
 	 * 
@@ -131,7 +129,7 @@ public class Event extends ListItem {
 	public GregorianCalendar getEnd() {
 		return end;
 	}
-	
+
 	/**
 	 * Sets the ending date
 	 * 
@@ -140,7 +138,7 @@ public class Event extends ListItem {
 	public void setEnd(GregorianCalendar end) {
 		this.end = end;
 	}
-	
+
 	/**
 	 * Gets whether this is an all day event
 	 * 
@@ -149,7 +147,7 @@ public class Event extends ListItem {
 	public boolean isAllDay() {
 		return allDay;
 	}
-	
+
 	/**
 	 * Sets whether this is an all day event
 	 * 
@@ -170,7 +168,7 @@ public class Event extends ListItem {
 		if (another.getType() == ItemType.SEPARATOR) {
 			return 0;
 		}
-		
+
 		return getStart().compareTo(((Event) another).getStart());
 	}
 
@@ -179,10 +177,10 @@ public class Event extends ListItem {
 	 */
 	@Override
 	public String toString() {
-		return "Event [title=" + title + ", start=" + start.get(Calendar.MONTH) + "/" + start.get(Calendar.DAY_OF_MONTH) + 
-			"/" + start.get(Calendar.YEAR) + " " + start.get(Calendar.HOUR_OF_DAY) + ":" + start.get(Calendar.MINUTE) + ", end=" + 
-			+ end.get(Calendar.MONTH) + "/" + end.get(Calendar.DAY_OF_MONTH) + "/" + end.get(Calendar.YEAR) + " " + 
-			end.get(Calendar.HOUR_OF_DAY) + ":" + end.get(Calendar.MINUTE) + ", allDay=" + allDay + ", color=" + color + ", location=" + location + "]";
+		return "Event [title=" + title + ", start=" + start.get(Calendar.MONTH) + "/" + start.get(Calendar.DAY_OF_MONTH) +
+				"/" + start.get(Calendar.YEAR) + " " + start.get(Calendar.HOUR_OF_DAY) + ":" + start.get(Calendar.MINUTE) + ", end=" +
+				+ end.get(Calendar.MONTH) + "/" + end.get(Calendar.DAY_OF_MONTH) + "/" + end.get(Calendar.YEAR) + " " +
+				end.get(Calendar.HOUR_OF_DAY) + ":" + end.get(Calendar.MINUTE) + ", allDay=" + allDay + ", color=" + color + ", location=" + location + "]";
 	}
 
 	/* (non-Javadoc)
@@ -192,7 +190,7 @@ public class Event extends ListItem {
 	public ItemType getType() {
 		return ItemType.EVENT;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.reber.agenda.ListItem#getLayout(android.content.Context, android.view.ViewGroup)
 	 */
@@ -200,14 +198,14 @@ public class Event extends ListItem {
 	public LinearLayout getLayout(Context ctx, ViewGroup parent, CalendarUtilities util) {
 		LinearLayout v = (LinearLayout) LayoutInflater.from(ctx).inflate(R.layout.rows, parent, false);
 		String text = getTitle();
-		String date = util.getFormattedTimeString(ctx, this); 
+		String date = util.getFormattedTimeString(ctx, this);
 		String location = getLocation();
 
 		TextView label  = (TextView) v.findViewById(R.id.label);
 		TextView labelDate  = (TextView) v.findViewById(R.id.labelDate);
 		ImageView iv = (ImageView) v.findViewById(R.id.icon);
 		TextView labelLocation = (TextView) v.findViewById(R.id.labelLocation);
-		
+
 		if (location == null || (location != null && location.equals(""))) {
 			label.setText(text);
 			labelDate.setText(date);
@@ -219,7 +217,7 @@ public class Event extends ListItem {
 		}
 
 		iv.setImageResource(CalendarUtilities.getColorBarResource(getColor()));
-		
+
 		return v;
 	}
 
@@ -293,12 +291,5 @@ public class Event extends ListItem {
 	 */
 	public int getId() {
 		return id;
-	}
-
-	/**
-	 * @return the contentProvider
-	 */
-	public String getContentProvider() {
-		return contentProvider;
 	}
 }

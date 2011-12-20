@@ -14,23 +14,45 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="30dip"
-	android:paddingLeft="0px" android:paddingRight="6dip"
-	android:paddingTop="6dip" android:paddingBottom="6dip">
-	<ImageView android:layout_width="wrap_content"
-		android:layout_height="fill_parent" android:layout_marginRight="6dip"
-		android:layout_marginLeft="0px" android:paddingLeft="0px"
-		android:id="@+id/package_icon" />
-	<RelativeLayout android:orientation="vertical"
-		android:layout_width="0dip" android:layout_weight="1"
-		android:layout_height="50dip" android:gravity="center_vertical">
-		<TextView android:layout_width="fill_parent"
-			android:textSize="17sp" android:layout_height="wrap_content"
-			android:layout_weight="1" android:id="@+id/app_name"
-			android:maxLines="1" android:textStyle="bold" android:textColor="@color/black" />
-		<TextView android:layout_width="fill_parent"
-			android:textSize="14sp" android:layout_height="wrap_content"
-			android:layout_weight="1" android:textColor="@color/darkGray" android:id="@+id/package_name"
-			android:maxLines="1" android:layout_below="@+id/app_name" />
-	</RelativeLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="30dip"
+    android:paddingBottom="6dip"
+    android:paddingLeft="0px"
+    android:paddingRight="6dip"
+    android:paddingTop="6dip" >
+
+    <ImageView
+        android:id="@+id/package_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="0px"
+        android:layout_marginRight="6dip"
+        android:paddingLeft="0px" />
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="50dip"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/package_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_name"
+            android:maxLines="1"
+            android:textColor="@color/darkGray"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
 </LinearLayout>

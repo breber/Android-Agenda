@@ -14,11 +14,21 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="40dip"
-	android:padding="6dip" >
-	<ImageView android:layout_width="wrap_content"
-		android:layout_height="40dip" android:id="@+id/chec" />
-	<TextView android:layout_width="fill_parent" android:paddingLeft="10dip"
-		android:layout_height="40dip" android:id="@+id/checkbox" android:gravity="center_vertical"
-		android:layout_toRightOf="@+id/chec"/>
+    android:layout_width="fill_parent"
+    android:layout_height="40dip"
+    android:padding="6dip" >
+
+    <ImageView
+        android:id="@+id/chec"
+        android:layout_width="wrap_content"
+        android:layout_height="40dip" />
+
+    <TextView
+        android:id="@+id/checkbox"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_toRightOf="@+id/chec"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dip" />
+
 </RelativeLayout>

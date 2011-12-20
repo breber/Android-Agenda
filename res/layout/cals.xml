@@ -14,10 +14,21 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" android:layout_height="fill_parent">
-	<Button android:id="@+id/saveSelectedCalendars"
-		android:layout_width="fill_parent" android:text="@string/save"
-		android:layout_height="wrap_content"></Button>
-	<ListView android:layout_height="wrap_content" android:id="@+id/ListView"
-		android:layout_width="fill_parent" android:layout_below="@+id/saveSelectedCalendars"></ListView>
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent" >
+
+    <Button
+        android:id="@+id/saveSelectedCalendars"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save" >
+    </Button>
+
+    <ListView
+        android:id="@+id/ListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saveSelectedCalendars" >
+    </ListView>
+
 </RelativeLayout>
