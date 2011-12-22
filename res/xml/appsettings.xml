@@ -2,20 +2,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <org.reber.agenda.CalendarsListPreference
-        android:key="appCalList"
+        android:key="AppPrefs"
         android:summary="@string/chooseCalendars"
         android:title="@string/chooseCalendars" />
 
     <EditTextPreference
         android:defaultValue="10"
-        android:key="@string/numDaysToDisplay"
+        android:key="NumberDays"
         android:title="@string/numDaysToDisplay" />
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:title="@string/use24Hour" />
+        android:title="@string/use24Hour"
+        android:key="24Hour" />
     <CheckBoxPreference
         android:defaultValue="true"
-        android:title="@string/enableClick" />
+        android:title="@string/enableClick"
+        android:key="EnableClickEvent" />
 
 </PreferenceScreen>

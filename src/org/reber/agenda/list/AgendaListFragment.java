@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +53,7 @@ public class AgendaListFragment extends ListFragment {
 			triggeredWidgetId = b.getInt(AgendaActivity.WIDGET_EXTRA, -1);
 		}
 
-		pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_READABLE);
+		pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		this.util = new CalendarUtilities(getActivity(), pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
 
 		notifyUtilUpdated();
@@ -143,13 +144,16 @@ public class AgendaListFragment extends ListFragment {
 	public void notifyUtilUpdated() {
 		util.setUse24Hour(pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
 		try {
-			//			util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
 			util.setSelectedCalendars(util.getSelectedCalendarFromPref(null));
 		} catch (NoSuchElementException e) {
 			util.setSelectedCalendars(new HashSet<AndroidCalendar>());
 		}
 
-		NUM_DAYS_IN_LIST = pref.getInt(Constants.AgendaList.NUM_DAYS, 7);
+		try {
+			NUM_DAYS_IN_LIST = Integer.parseInt(pref.getString(Constants.AgendaList.NUM_DAYS, "7"));
+		} catch (NumberFormatException e) {
+			NUM_DAYS_IN_LIST = 7;
+		}
 
 		TextView title = (TextView) getActivity().findViewById(R.id.chooseLabel);
 

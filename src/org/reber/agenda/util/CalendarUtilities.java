@@ -226,7 +226,7 @@ public class CalendarUtilities {
 		} else {
 			pref = PreferenceManager.getDefaultSharedPreferences(context);
 		}
-		Set<String> string = pref.getStringSet("appCalList", null);
+		Set<String> string = pref.getStringSet(Constants.AgendaList.APP_PREFS, null);
 
 		if (string != null) {
 			for (AndroidCalendar c : getAvailableCalendars()) {
