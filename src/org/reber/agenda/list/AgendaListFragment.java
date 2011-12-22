@@ -15,13 +15,13 @@ import org.reber.agenda.util.CalendarUtilities;
 import org.reber.agenda.util.Constants;
 
 import android.app.Activity;
+import android.app.ListFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
@@ -64,7 +64,8 @@ public class AgendaListFragment extends ListFragment {
 	protected void updateList() {
 		try {
 			if (triggeredWidgetId == -1) {
-				util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
+				//				util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
+				util.setSelectedCalendars(util.getSelectedCalendarFromPref(null));
 			} else {
 				// If we have a valid widget id (this activity was started by clicking on the widget),
 				// set the calendars for this run to the calendars from that widget's preferences
@@ -142,7 +143,8 @@ public class AgendaListFragment extends ListFragment {
 	public void notifyUtilUpdated() {
 		util.setUse24Hour(pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
 		try {
-			util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
+			//			util.setSelectedCalendars(util.getSelectedCalendarFromPref(Constants.AgendaList.APP_PREFS));
+			util.setSelectedCalendars(util.getSelectedCalendarFromPref(null));
 		} catch (NoSuchElementException e) {
 			util.setSelectedCalendars(new HashSet<AndroidCalendar>());
 		}

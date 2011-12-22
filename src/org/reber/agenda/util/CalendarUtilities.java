@@ -16,7 +16,6 @@ package org.reber.agenda.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,7 +23,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
@@ -43,6 +41,7 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -220,13 +219,18 @@ public class CalendarUtilities {
 	 */
 	public Set<org.reber.agenda.AndroidCalendar> getSelectedCalendarFromPref(String prefName) {
 		Set<AndroidCalendar> calsFromPref = new HashSet<AndroidCalendar>();
-		SharedPreferences pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_READABLE);
-		String string = pref.getString(Constants.CAL_PREFS, null);
+		SharedPreferences pref = null;
+
+		if (prefName != null) {
+			pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_READABLE);
+		} else {
+			pref = PreferenceManager.getDefaultSharedPreferences(context);
+		}
+		Set<String> string = pref.getStringSet("appCalList", null);
 
 		if (string != null) {
-			List<String> selectedIds = Arrays.asList(string.split("~"));
 			for (AndroidCalendar c : getAvailableCalendars()) {
-				if (selectedIds.contains(c.getId())) {
+				if (string.contains(c.getId())) {
 					calsFromPref.add(c);
 				}
 			}

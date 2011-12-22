@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,7 +38,7 @@ import android.widget.TextView;
  * 
  * @author brianreber
  */
-public class AgendaActivity extends FragmentActivity {
+public class AgendaActivity extends Activity {
 
 	public static final String WIDGET_EXTRA = "appWidgetId";
 
@@ -75,8 +74,8 @@ public class AgendaActivity extends FragmentActivity {
 			dlg.show();
 		}
 
-		frag = (AgendaListFragment) getSupportFragmentManager().findFragmentById(R.id.list_frag);
-		calfrag = (CalendarListFragment) getSupportFragmentManager().findFragmentById(R.id.cal_list_frag);
+		frag = (AgendaListFragment) getFragmentManager().findFragmentById(R.id.list_frag);
+		calfrag = (CalendarListFragment) getFragmentManager().findFragmentById(R.id.cal_list_frag);
 	}
 
 	@Override
@@ -145,9 +144,9 @@ public class AgendaActivity extends FragmentActivity {
 		if (requestCode == 10000 && resultCode != RESULT_CANCELED) {
 			frag.notifyUtilUpdated();
 
-			if (calfrag != null) {
-				calfrag.setPrefToGrabFrom(Constants.AgendaList.APP_PREFS);
-			}
+			//			if (calfrag != null) {
+			//				calfrag.setPrefToGrabFrom(Constants.AgendaList.APP_PREFS);
+			//			}
 		}
 	}
 }
