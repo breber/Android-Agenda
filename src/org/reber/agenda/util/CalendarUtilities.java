@@ -226,7 +226,8 @@ public class CalendarUtilities {
 		} else {
 			pref = PreferenceManager.getDefaultSharedPreferences(context);
 		}
-		Set<String> string = pref.getStringSet(Constants.AgendaList.APP_PREFS, null);
+
+		Set<String> string = pref.getStringSet(Constants.CAL_PREFS, null);
 
 		if (string != null) {
 			for (AndroidCalendar c : getAvailableCalendars()) {
@@ -247,16 +248,15 @@ public class CalendarUtilities {
 	 * The key to file the preference under
 	 */
 	public void saveSelectedCalendarsPref(String prefName) {
-		StringBuilder selectedCalsInfo = new StringBuilder();
+		Set<String> selectedCalsInfo = new HashSet<String>();
 		for (AndroidCalendar c : selectedCalendars) {
-			selectedCalsInfo.append(c.getId());
-			selectedCalsInfo.append("~");
+			selectedCalsInfo.add(c.getId());
 		}
 
 		// Save the package name in the preferences
 		SharedPreferences pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_WRITEABLE);
 		Editor edit = pref.edit();
-		edit.putString(Constants.CAL_PREFS, selectedCalsInfo.toString());
+		edit.putStringSet(Constants.CAL_PREFS, selectedCalsInfo);
 		edit.commit();
 	}
 

@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <org.reber.agenda.CalendarsListPreference
-        android:key="AppPrefs"
+        android:key="Calendars"
         android:summary="@string/chooseCalendars"
         android:title="@string/chooseCalendars" />
 
