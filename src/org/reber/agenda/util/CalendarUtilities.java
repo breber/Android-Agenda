@@ -97,7 +97,6 @@ public class CalendarUtilities {
 		colorBarResources.put("2f6309", R.drawable.agenda_calendar_30);
 		colorBarResources.put("5f6b02", R.drawable.agenda_calendar_31);
 		colorBarResources.put("8c500b", R.drawable.agenda_calendar_32);
-		colorBarResources.put("8c500b", R.drawable.agenda_calendar_33);
 		colorBarResources.put("754916", R.drawable.agenda_calendar_34);
 		colorBarResources.put("6b3304", R.drawable.agenda_calendar_35);
 		colorBarResources.put("5b123b", R.drawable.agenda_calendar_36);

@@ -19,7 +19,7 @@
 <resources>
 	<string name="appName">Агенда</string>
 	<string name="today">Сегодня: </string>
-	<string name="tomorrowAbbreviation">Завтра: </string>
+	<!-- <string name="tomorrowAbbreviation">Завтра: </string> -->
 	<string name="tomorrow">Завтра: </string>
 	<string name="allDay">Весь день</string>
 	<string name="now">Сейчас</string>
@@ -27,7 +27,7 @@
 	<string name="noCalendarsSelected">Календари не выбраны</string>
 	<string name="changes">Изменения</string>
 	<string name="ok">Сохранить</string>
-	<string name="cancel">Отмена</string>
+	<!-- <string name="cancel">Отмена</string> -->
 	<string name="appToOpen">Приложение, запускаемое при нажатии на виджет</string>
 	<string name="widgetSettings">Настройки виджета</string>
 	<string name="appSettings">Настройки</string>
@@ -43,9 +43,9 @@
 	<string name="numDaysHint2">2 дня</string>
 	<string name="numDaysHint7">7 дня</string>
 	<string name="use24Hour">24-часовой формат</string>
-	<string name="showMultipleEvents">Многочисленные события</string>
+	<!-- <string name="showMultipleEvents">Многочисленные события</string> -->
 	<string name="invalidNumberOfDays">Неверное кол-во дней</string>
-	<string name="chooseTextSize">Размер текста виджета</string>
+	<!-- <string name="chooseTextSize">Размер текста виджета</string> -->
 	<string name="large">Крупный</string>
 	<string name="medium">Средний</string>
 	<string name="small">Мелкий</string>
