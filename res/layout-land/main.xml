@@ -32,13 +32,13 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/chooseLabel" >
 
-        <fragment
+        <!-- <fragment
             android:id="@+id/cal_list_frag"
             android:layout_width="300dip"
             android:layout_height="fill_parent"
             class="org.reber.agenda.list.CalendarListFragment"
             android:visibility="visible" >
-        </fragment>
+        </fragment> -->
 
         <fragment
             android:id="@+id/list_frag"

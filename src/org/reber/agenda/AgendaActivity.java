@@ -15,7 +15,6 @@
 package org.reber.agenda;
 
 import org.reber.agenda.list.AgendaListFragment;
-import org.reber.agenda.list.CalendarListFragment;
 import org.reber.agenda.util.Constants;
 import org.reber.agenda.util.Util;
 
@@ -43,7 +42,6 @@ public class AgendaActivity extends Activity {
 	public static final String WIDGET_EXTRA = "appWidgetId";
 
 	private AgendaListFragment frag;
-	private CalendarListFragment calfrag;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -75,7 +73,6 @@ public class AgendaActivity extends Activity {
 		}
 
 		frag = (AgendaListFragment) getFragmentManager().findFragmentById(R.id.list_frag);
-		calfrag = (CalendarListFragment) getFragmentManager().findFragmentById(R.id.cal_list_frag);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.reber.agenda" android:versionName="2" android:versionCode="21">
+	package="org.reber.agenda" android:versionName="2.0.0.1" android:versionCode="22">
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14"></uses-sdk>
 	<application android:icon="@drawable/icon" android:label="@string/appName">
