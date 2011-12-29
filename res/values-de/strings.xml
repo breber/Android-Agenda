@@ -40,7 +40,7 @@
 	<string name="widgetTransparency">Widget Transparenz</string>
 	<string name="numDaysToDisplay">Anzuzeigene Anzahl der Tage</string>
 	<string name="numDaysHint2">2 Tage</string>
-	<string name="numDaysHint7">7 Tage</string>
+	<!-- <string name="numDaysHint7">7 Tage</string> -->
 	<string name="use24Hour">24h Format Verwenden</string>
 	<!-- <string name="showMultipleEvents">Aktiviere mehrfache Ereignisse</string> -->
 	<string name="invalidNumberOfDays">Ungültige Anzahl der Tage</string>

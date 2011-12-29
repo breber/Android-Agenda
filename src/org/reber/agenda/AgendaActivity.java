@@ -52,7 +52,7 @@ public class AgendaActivity extends Activity {
 		setResult(RESULT_OK, new Intent(AgendaWidgetProvider.WIDGET_UPDATE));
 
 		final SharedPreferences pref = getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_WRITEABLE);
-		if (getResources().getIntArray(R.array.versions)[0] > pref.getInt(Constants.AgendaList.VERSION, 0)) {
+		if (getResources().getIntArray(R.array.versions)[0] > pref.getInt(Constants.AgendaList.VERSION, Integer.MAX_VALUE)) {
 			Dialog dlg = new Dialog(this);
 			dlg.setTitle(getResources().getString(R.string.changes));
 

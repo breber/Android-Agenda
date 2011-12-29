@@ -41,7 +41,7 @@
 	<string name="widgetTransparency">Прозрачность виджета</string>
 	<string name="numDaysToDisplay">Кол-во отображаемых дней</string>
 	<string name="numDaysHint2">2 дня</string>
-	<string name="numDaysHint7">7 дня</string>
+	<!-- <string name="numDaysHint7">7 дня</string> -->
 	<string name="use24Hour">24-часовой формат</string>
 	<!-- <string name="showMultipleEvents">Многочисленные события</string> -->
 	<string name="invalidNumberOfDays">Неверное кол-во дней</string>

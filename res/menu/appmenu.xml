@@ -13,8 +13,25 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:title="@string/newEvent" android:id="@+id/newEventMenuItem" android:icon="@drawable/ic_menu_add"></item>
-	<item android:title="@string/refresh" android:id="@+id/refresh" android:icon="@drawable/ic_menu_refresh"></item>
-	<item android:title="@string/appSettings" android:id="@+id/chooseSettings" android:icon="@drawable/ic_menu_manage"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/newEventMenuItem"
+        android:icon="@drawable/ic_menu_add"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/newEvent">
+    </item>
+    <item
+        android:id="@+id/refresh"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/refresh">
+    </item>
+    <item
+        android:id="@+id/chooseSettings"
+        android:icon="@drawable/ic_menu_manage"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/appSettings">
+    </item>
+
 </menu>

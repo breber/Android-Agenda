@@ -38,7 +38,7 @@
 	<string name="widgetTransparency">Widget Transparency</string>
 	<string name="numDaysToDisplay">Number of Days to Display</string>
 	<string name="numDaysHint2">2 days</string>
-	<string name="numDaysHint7">7 days</string>
+	<!-- <string name="numDaysHint7">7 days</string> -->
 	<string name="use24Hour">Use 24-hour format</string>
 	<!-- <string name="showMultipleEvents">Multiple events</string> -->
 	<string name="invalidNumberOfDays">Invalid number of days</string>
@@ -51,6 +51,5 @@
 	<string name="enableClick">Open event on click</string>
 	<string name="newEvent">New Event</string>
 	
-	<string name="updateMessage">-When opening this app by clicking on the widget, events from that widget\'s
-		group of selected calendars is displayed (thanks Andrey!)</string>
+	<string name="updateMessage"></string>
 </resources>
