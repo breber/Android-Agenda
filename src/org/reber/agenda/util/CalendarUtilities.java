@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Brian Reber
+ * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms are permitted
@@ -32,7 +32,6 @@ import org.reber.agenda.AndroidCalendar;
 import org.reber.agenda.R;
 import org.reber.agenda.list.Event;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -222,7 +221,7 @@ public class CalendarUtilities {
 		SharedPreferences pref = null;
 
 		if (prefName != null) {
-			pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_READABLE);
+			pref = context.getSharedPreferences(prefName, 0);
 		} else {
 			pref = PreferenceManager.getDefaultSharedPreferences(context);
 		}
@@ -254,7 +253,7 @@ public class CalendarUtilities {
 		}
 
 		// Save the package name in the preferences
-		SharedPreferences pref = context.getSharedPreferences(prefName, Activity.MODE_WORLD_WRITEABLE);
+		SharedPreferences pref = context.getSharedPreferences(prefName, 0);
 		Editor edit = pref.edit();
 		edit.putStringSet(Constants.CAL_PREFS, selectedCalsInfo);
 		edit.commit();

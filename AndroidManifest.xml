@@ -1,34 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="org.reber.agenda" android:versionName="2.0.0.2" android:versionCode="23">
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14"></uses-sdk>
-	<application android:icon="@drawable/icon" android:label="@string/appName">
-		<activity android:name=".AgendaActivity" android:label="@string/appName" android:configChanges="keyboardHidden|orientation">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".SettingsActivity" android:label="@string/appSettings" android:configChanges="keyboardHidden|orientation">
-			<intent-filter>
-				<action android:name="android.intent.action.CHOOSER" />
-			</intent-filter>
-		</activity>
-		<activity android:name="AgendaConfigure" android:label="AgndaWidgetConfig"
-			android:theme="@android:style/Theme.NoTitleBar" android:configChanges="keyboardHidden|orientation">
-			<intent-filter>
-				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-			</intent-filter>
-		</activity>
-		<receiver android:name=".AgendaWidgetProvider" android:label="@string/appName">
-			<intent-filter>
-				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-				<action android:name="org.reber.agenda.AGENDA_WIDGET_UPDATE" />
-				<action android:name="org.reber.agenda.AGENDA_WIDGET_NEXT_EVENT" />
-			</intent-filter>
-			<meta-data android:name="android.appwidget.provider"
-				android:resource="@xml/agendaappwidget" />
-		</receiver>
-	</application>
-</manifest> 
+    package="org.reber.agenda"
+    android:versionCode="24"
+    android:versionName="2.1.0" >
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="16" >
+    </uses-sdk>
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/appName" >
+        <activity
+            android:name=".AgendaActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/appName" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/appSettings" >
+            <intent-filter>
+                <action android:name="android.intent.action.CHOOSER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="AgendaConfigure"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="AgndaWidgetConfig"
+            android:theme="@android:style/Theme.DeviceDefault.DialogWhenLarge.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".AgendaWidgetProvider"
+            android:label="@string/appName" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="org.reber.agenda.AGENDA_WIDGET_UPDATE" />
+                <action android:name="org.reber.agenda.AGENDA_WIDGET_NEXT_EVENT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/agendaappwidget" />
+        </receiver>
+    </application>
+
+</manifest>

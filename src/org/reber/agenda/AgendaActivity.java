@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Brian Reber
+ * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms are permitted
@@ -51,14 +51,14 @@ public class AgendaActivity extends Activity {
 
 		setResult(RESULT_OK, new Intent(AgendaWidgetProvider.WIDGET_UPDATE));
 
-		final SharedPreferences pref = getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_WRITEABLE);
+		final SharedPreferences pref = getSharedPreferences(Constants.AgendaList.APP_PREFS, 0);
 		if (getResources().getIntArray(R.array.versions)[0] > pref.getInt(Constants.AgendaList.VERSION, Integer.MAX_VALUE)) {
 			Dialog dlg = new Dialog(this);
 			dlg.setTitle(getResources().getString(R.string.changes));
 
 			TextView tv = new TextView(this);
 			tv.setText(R.string.updateMessage);
-			tv.setWidth(getWindowManager().getDefaultDisplay().getWidth() - 10);
+			tv.setWidth(getApplicationContext().getResources().getDisplayMetrics().widthPixels - 10);
 			tv.setPadding(5, 0, 5, 5);
 			dlg.setContentView(tv);
 			dlg.setOnDismissListener(new OnDismissListener() {

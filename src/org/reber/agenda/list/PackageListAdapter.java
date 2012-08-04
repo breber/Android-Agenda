@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Brian Reber
+ * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms are permitted
@@ -7,7 +7,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -38,7 +38,7 @@ import android.widget.TextView;
  * @author brianreber
  */
 public class PackageListAdapter extends ArrayAdapter<PackageInfoWrapper> {
-	
+
 	public PackageListAdapter(Context context, int textViewResourceId) {
 		super(context, textViewResourceId, getAppList(context));
 	}
@@ -50,7 +50,7 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfoWrapper> {
 			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.packages, null);
 		}
-		
+
 		// Get the necessary views
 		TextView appName  = (TextView) v.findViewById(R.id.app_name);
 		TextView packageName  = (TextView) v.findViewById(R.id.package_name);
@@ -60,10 +60,13 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfoWrapper> {
 		appName.setText(getItem(position).appName);
 		packageName.setText(getItem(position).packageName);
 		iv.setImageDrawable(getItem(position).icon);
-		
+
+		appName.setTextColor(getContext().getResources().getColor(R.color.white));
+		packageName.setTextColor(getContext().getResources().getColor(R.color.white));
+
 		return v;
 	}
-	
+
 	/**
 	 * Gets a list of installed apps that could be a calendar app.
 	 * 
@@ -73,13 +76,13 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfoWrapper> {
 	private static List<PackageInfoWrapper> getAppList(final Context ctx) {
 		List<PackageInfoWrapper> packages = new ArrayList<PackageInfoWrapper>();
 		PackageManager packageManager = ctx.getPackageManager();
-		
+
 		packages.add(new PackageInfoWrapper(ctx.getResources().getText(R.string.none), "", ctx.getResources().getDrawable(R.drawable.none)));
-		
+
 		for (PackageInfo rs : packageManager.getInstalledPackages(0)) {
 			String packageNameLC = rs.packageName.toLowerCase();
 			if ((packageNameLC.contains("cal") || packageNameLC.contains("agenda")) && !packageNameLC.contains("calc")) {
-				packages.add(new PackageInfoWrapper(rs.applicationInfo.loadLabel(packageManager), 
+				packages.add(new PackageInfoWrapper(rs.applicationInfo.loadLabel(packageManager),
 						rs.packageName, rs.applicationInfo.loadIcon(packageManager)));
 			}
 		}
@@ -92,7 +95,7 @@ public class PackageListAdapter extends ArrayAdapter<PackageInfoWrapper> {
 				} else if (object2.appName.toString().equals(ctx.getResources().getText(R.string.none))) {
 					return 1;
 				}
-				
+
 				return object1.appName.toString().compareTo(object2.appName.toString());
 			}
 		});

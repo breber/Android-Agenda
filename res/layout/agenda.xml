@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- * Copyright (C) 2011 Brian Reber
+ * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms are permitted
@@ -145,7 +145,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_marginRight="5dip"
-                        android:layout_toLeftOf="@+id/event_num"
                         android:gravity="left"
                         android:singleLine="true"
                         android:textColor="@color/gray"

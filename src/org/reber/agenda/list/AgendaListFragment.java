@@ -1,3 +1,17 @@
+/*
+ * Copyright (C) 2012 Brian Reber
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms are permitted
+ * provided that the above copyright notice and this paragraph are
+ * duplicated in all such forms and that any documentation,
+ * advertising materials, and other materials related to such
+ * distribution and use acknowledge that the software was developed
+ * by Brian Reber.
+ * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.reber.agenda.list;
 
 import java.util.ArrayList;
@@ -14,7 +28,6 @@ import org.reber.agenda.R;
 import org.reber.agenda.util.CalendarUtilities;
 import org.reber.agenda.util.Constants;
 
-import android.app.Activity;
 import android.app.ListFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -115,7 +128,7 @@ public class AgendaListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		SharedPreferences pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, Activity.MODE_WORLD_READABLE);
+		SharedPreferences pref = getActivity().getSharedPreferences(Constants.AgendaList.APP_PREFS, 0);
 		if (pref.getBoolean(Constants.AgendaList.ENABLE_CLICK_EVENT, true)) {
 			Object obj = l.getItemAtPosition(position);
 			Event ev = null;

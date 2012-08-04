@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Brian Reber
+ * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms are permitted
@@ -15,6 +15,7 @@
 package org.reber.agenda;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -25,7 +26,6 @@ import org.reber.agenda.list.Event;
 import org.reber.agenda.util.CalendarUtilities;
 import org.reber.agenda.util.Constants;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -84,10 +84,9 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 		// Perform this loop procedure for each App Widget that belongs to this provider
 		for (int i = 0; i < appWidgetIds.length; i++) {
 			int appWidgetId = appWidgetIds[i];
-			Log.d(Constants.TAG, "UPDATING - " + appWidgetId + " at " + new Date().getHours() + ":" + new Date().getMinutes());
 			updateAppWidget(context, appWidgetManager, appWidgetId, 0);
 
-			if (!ids.contains(new Integer(appWidgetId))) {
+			if (!ids.contains(Integer.valueOf(appWidgetId))) {
 				AgendaConfigure.setAlarm(context, appWidgetId);
 			}
 		}
@@ -103,7 +102,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	 */
 	public static void updateAppWidget(final Context context, AppWidgetManager appWidgetManager, final int appWidgetId, int eventPos) {
 		// Get the package name of the app we want to use when the user clicks on the widget
-		SharedPreferences pref = context.getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + appWidgetId, Activity.MODE_WORLD_READABLE);
+		SharedPreferences pref = context.getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + appWidgetId, 0);
 		final String packageName = pref.getString(Constants.Widget.PACKAGE_NAME, "");
 		int textColor = pref.getInt(Constants.Widget.TEXT_COLOR, context.getResources().getColor(R.color.white));
 		int bgColor = pref.getInt(Constants.Widget.BG_COLOR, context.getResources().getColor(R.color.black));
@@ -113,7 +112,9 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 
 		bgColor &= 0x00FFFFFF;
 		bgColor |= (transparency << 24);
-		Date currentDate = new Date();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
 		Intent intent = new Intent();
 		PendingIntent pendingIntent = null;
 
@@ -135,9 +136,9 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 
 
 		// Get the layout for the App Widget and attach an on-click listener to the button
-		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.agenda);;
-		views.setTextViewText(R.id.day_agenda, currentDate.getDate()+"");
-		views.setTextViewText(R.id.month_agenda, CalendarUtilities.monthFormat.format(currentDate));
+		RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.agenda);
+		views.setTextViewText(R.id.day_agenda, calendar.get(Calendar.DATE)+"");
+		views.setTextViewText(R.id.month_agenda, CalendarUtilities.monthFormat.format(calendar.getTime()));
 		views.setInt(R.id.agenda_frame, "setBackgroundColor", bgColor);
 		setTextColor(views, textColor);
 
@@ -256,7 +257,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	 * The id of the widget
 	 */
 	public static void addIdToAlarm(Context ctx, int id) {
-		ids.add(new Integer(id));
+		ids.add(Integer.valueOf(id));
 	}
 
 	/**
@@ -266,7 +267,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 	 * The id of the widget
 	 */
 	public static void removeIdFromList(Context ctx, int id) {
-		ids.remove(new Integer(id));
+		ids.remove(Integer.valueOf(id));
 	}
 
 	@Override
@@ -275,7 +276,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 
 		for (int appWidgetId : appWidgetIds) {
 			Log.d(Constants.TAG, "DELETING - " + appWidgetId);
-			SharedPreferences pref = context.getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + appWidgetId, Context.MODE_WORLD_WRITEABLE);
+			SharedPreferences pref = context.getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + appWidgetId, 0);
 			Editor edit = pref.edit();
 			edit.putInt(Constants.Widget.BG_COLOR, context.getResources().getColor(R.color.black));
 			edit.putInt(Constants.Widget.TEXT_COLOR, context.getResources().getColor(R.color.white));

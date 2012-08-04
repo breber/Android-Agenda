@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Brian Reber
+ * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms are permitted
@@ -102,11 +102,11 @@ public class AgendaConfigure extends Activity {
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 		// Set the list of proposed apps for the click handler
-		appsSpinner.setAdapter(new PackageListAdapter(this, android.R.layout.simple_dropdown_item_1line));
+		appsSpinner.setAdapter(new PackageListAdapter(this, android.R.layout.simple_spinner_dropdown_item));
 
 		configOkButton.setOnClickListener(configOkButtonOnClickListener);
 
-		SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, Context.MODE_WORLD_READABLE);
+		SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, 0);
 		util = new CalendarUtilities(this, pref.getBoolean(Constants.Widget.USE_24_HR, false));
 
 		chooseCalendarsButton.setOnClickListener(new OnClickListener() {
@@ -209,7 +209,7 @@ public class AgendaConfigure extends Activity {
 	 * preferences for the widget.
 	 */
 	private void setValuesBasedOnPrefs() {
-		SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, Context.MODE_WORLD_READABLE);
+		SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, 0);
 
 		int selection = 0;
 
@@ -269,7 +269,7 @@ public class AgendaConfigure extends Activity {
 			}
 
 			// Save the package name in the preferences
-			SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, MODE_WORLD_WRITEABLE);
+			SharedPreferences pref = getSharedPreferences(Constants.Widget.WIDGET_PREFS + "" + mAppWidgetId, 0);
 			Editor edit = pref.edit();
 			edit.putString(Constants.Widget.PACKAGE_NAME, ((PackageInfoWrapper) appsSpinner.getSelectedItem()).packageName);
 			edit.putInt(Constants.Widget.BG_COLOR, bgColor);

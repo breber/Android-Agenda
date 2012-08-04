@@ -14,8 +14,8 @@
  */
 package org.reber.agenda;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 
 /**
  * This is the Activity that gets loaded when the user clicks on the app icon,
@@ -23,13 +23,13 @@ import android.os.Bundle;
  * 
  * @author brianreber
  */
-public class SettingsActivity extends Activity {
+public class PreferencesFragment extends PreferenceFragment {
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.preferences);
+		addPreferencesFromResource(R.xml.appsettings);
 	}
 
 }
