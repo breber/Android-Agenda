@@ -328,7 +328,8 @@ public class CalendarUtilities {
 	 * The resource id of for the given color, if it exists. Blue otherwise.
 	 */
 	public static int getColorCalendarResource(String color) {
-		return R.drawable.agenda_calendar_01;
+		// TODO: dynamically create based on color
+		return R.drawable.calendar_icon_01;
 	}
 
 	/**
