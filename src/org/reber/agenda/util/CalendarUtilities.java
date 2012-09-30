@@ -21,9 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -47,112 +45,21 @@ import android.util.Log;
 
 /**
  * A class containing some simple utilities that deal with Calendar data.
- * 
+ *
  * @author brianreber
  */
 public class CalendarUtilities {
 
-	private Set<org.reber.agenda.AndroidCalendar> calendars;
+	private final Set<org.reber.agenda.AndroidCalendar> calendars;
 	private Set<org.reber.agenda.AndroidCalendar> selectedCalendars;
-	private Context context;
+	private final Context context;
 	private boolean use24Hour;
 
 	public static SimpleDateFormat monthFormat = new SimpleDateFormat("MMM");
 
-	private static final Map<String, Integer> colorBarResources = new HashMap<String, Integer>();
-	private static final Map<String, Integer> colorCalendarResources = new HashMap<String, Integer>();
-
-	static {
-		colorBarResources.put("a32929", R.drawable.agenda_calendar_01);
-		colorBarResources.put("b1365f", R.drawable.agenda_calendar_02);
-		colorBarResources.put("7a367a", R.drawable.agenda_calendar_03);
-		colorBarResources.put("5229a3", R.drawable.agenda_calendar_04);
-		colorBarResources.put("29527a", R.drawable.agenda_calendar_05);
-		colorBarResources.put("2952a3", R.drawable.agenda_calendar_06);
-		colorBarResources.put("1b887a", R.drawable.agenda_calendar_07);
-		colorBarResources.put("28754e", R.drawable.agenda_calendar_08);
-		colorBarResources.put("0d7813", R.drawable.agenda_calendar_09);
-		colorBarResources.put("528800", R.drawable.agenda_calendar_10);
-		colorBarResources.put("88880e", R.drawable.agenda_calendar_11);
-		colorBarResources.put("ab8b00", R.drawable.agenda_calendar_12);
-		colorBarResources.put("be6d00", R.drawable.agenda_calendar_13);
-		colorBarResources.put("b1440e", R.drawable.agenda_calendar_14);
-		colorBarResources.put("865a5a", R.drawable.agenda_calendar_15);
-		colorBarResources.put("705770", R.drawable.agenda_calendar_16);
-		colorBarResources.put("4e5d6c", R.drawable.agenda_calendar_17);
-		colorBarResources.put("5a6986", R.drawable.agenda_calendar_18);
-		colorBarResources.put("4a716c", R.drawable.agenda_calendar_19);
-		colorBarResources.put("6e6e41", R.drawable.agenda_calendar_20);
-		colorBarResources.put("8d6f47", R.drawable.agenda_calendar_21);
-		colorBarResources.put("853104", R.drawable.agenda_calendar_22);
-		colorBarResources.put("691426", R.drawable.agenda_calendar_23);
-		colorBarResources.put("5c1158", R.drawable.agenda_calendar_24);
-		colorBarResources.put("23164e", R.drawable.agenda_calendar_25);
-		colorBarResources.put("182c57", R.drawable.agenda_calendar_26);
-		colorBarResources.put("060d5e", R.drawable.agenda_calendar_27);
-		colorBarResources.put("125a12", R.drawable.agenda_calendar_28);
-		colorBarResources.put("2f6213", R.drawable.agenda_calendar_29);
-		colorBarResources.put("2f6309", R.drawable.agenda_calendar_30);
-		colorBarResources.put("5f6b02", R.drawable.agenda_calendar_31);
-		colorBarResources.put("8c500b", R.drawable.agenda_calendar_32);
-		colorBarResources.put("754916", R.drawable.agenda_calendar_34);
-		colorBarResources.put("6b3304", R.drawable.agenda_calendar_35);
-		colorBarResources.put("5b123b", R.drawable.agenda_calendar_36);
-		colorBarResources.put("42104a", R.drawable.agenda_calendar_37);
-		colorBarResources.put("113f47", R.drawable.agenda_calendar_38);
-		colorBarResources.put("333333", R.drawable.agenda_calendar_39);
-		colorBarResources.put("0f4b38", R.drawable.agenda_calendar_40);
-		colorBarResources.put("856508", R.drawable.agenda_calendar_41);
-		colorBarResources.put("711616", R.drawable.agenda_calendar_42);
-
-
-		colorCalendarResources.put("a32929", R.drawable.calendar_icon_01);
-		colorCalendarResources.put("b1365f", R.drawable.calendar_icon_02);
-		colorCalendarResources.put("7a367a", R.drawable.calendar_icon_03);
-		colorCalendarResources.put("5229a3", R.drawable.calendar_icon_04);
-		colorCalendarResources.put("29527a", R.drawable.calendar_icon_05);
-		colorCalendarResources.put("2952a3", R.drawable.calendar_icon_06);
-		colorCalendarResources.put("1b887a", R.drawable.calendar_icon_07);
-		colorCalendarResources.put("28754e", R.drawable.calendar_icon_08);
-		colorCalendarResources.put("0d7813", R.drawable.calendar_icon_09);
-		colorCalendarResources.put("528800", R.drawable.calendar_icon_10);
-		colorCalendarResources.put("88880e", R.drawable.calendar_icon_11);
-		colorCalendarResources.put("ab8b00", R.drawable.calendar_icon_12);
-		colorCalendarResources.put("be6d00", R.drawable.calendar_icon_13);
-		colorCalendarResources.put("b1440e", R.drawable.calendar_icon_14);
-		colorCalendarResources.put("865a5a", R.drawable.calendar_icon_15);
-		colorCalendarResources.put("705770", R.drawable.calendar_icon_16);
-		colorCalendarResources.put("4e5d6c", R.drawable.calendar_icon_17);
-		colorCalendarResources.put("5a6986", R.drawable.calendar_icon_18);
-		colorCalendarResources.put("4a716c", R.drawable.calendar_icon_19);
-		colorCalendarResources.put("6e6e41", R.drawable.calendar_icon_20);
-		colorCalendarResources.put("8d6f47", R.drawable.calendar_icon_21);
-		colorCalendarResources.put("853104", R.drawable.calendar_icon_22);
-		colorCalendarResources.put("691426", R.drawable.calendar_icon_23);
-		colorCalendarResources.put("5c1158", R.drawable.calendar_icon_24);
-		colorCalendarResources.put("23164e", R.drawable.calendar_icon_25);
-		colorCalendarResources.put("182c57", R.drawable.calendar_icon_26);
-		colorCalendarResources.put("060d5e", R.drawable.calendar_icon_27);
-		colorCalendarResources.put("125a12", R.drawable.calendar_icon_28);
-		colorCalendarResources.put("2f6213", R.drawable.calendar_icon_29);
-		colorCalendarResources.put("2f6309", R.drawable.calendar_icon_30);
-		colorCalendarResources.put("5f6b02", R.drawable.calendar_icon_31);
-		colorCalendarResources.put("8c500b", R.drawable.calendar_icon_32);
-		colorCalendarResources.put("8c500b", R.drawable.calendar_icon_33);
-		colorCalendarResources.put("754916", R.drawable.calendar_icon_34);
-		colorCalendarResources.put("6b3304", R.drawable.calendar_icon_35);
-		colorCalendarResources.put("5b123b", R.drawable.calendar_icon_36);
-		colorCalendarResources.put("42104a", R.drawable.calendar_icon_37);
-		colorCalendarResources.put("113f47", R.drawable.calendar_icon_38);
-		colorCalendarResources.put("333333", R.drawable.calendar_icon_39);
-		colorCalendarResources.put("0f4b38", R.drawable.calendar_icon_40);
-		colorCalendarResources.put("856508", R.drawable.calendar_icon_41);
-		colorCalendarResources.put("711616", R.drawable.calendar_icon_42);
-	}
-
 	/**
 	 * Creates a new CalendarUtilities instance with the given context
-	 * 
+	 *
 	 * @param context
 	 */
 	public CalendarUtilities(Context context, boolean use24Hour) {
@@ -179,7 +86,7 @@ public class CalendarUtilities {
 
 	/**
 	 * Gets a set of all available calendars on this device
-	 * 
+	 *
 	 * @return
 	 * A set of all available calendars on this device
 	 */
@@ -208,7 +115,7 @@ public class CalendarUtilities {
 
 	/**
 	 * Retrieves the selected calendars from the SharedPreferences with the given key
-	 * 
+	 *
 	 * @param prefName
 	 * The key the calendars are filed under
 	 * @return
@@ -242,7 +149,7 @@ public class CalendarUtilities {
 	/**
 	 * Save the list of selected calendars in a SharedPreference with the
 	 * given key
-	 * 
+	 *
 	 * @param prefName
 	 * The key to file the preference under
 	 */
@@ -261,7 +168,7 @@ public class CalendarUtilities {
 
 	/**
 	 * Set the selected calendars for this instance
-	 * 
+	 *
 	 * @param selected
 	 * The set of calendars the user has selected
 	 */
@@ -271,7 +178,7 @@ public class CalendarUtilities {
 
 	/**
 	 * Gets the selected calendars for this instance
-	 * 
+	 *
 	 * @return
 	 * The set of calendars the user has selected
 	 */
@@ -282,7 +189,7 @@ public class CalendarUtilities {
 	/**
 	 * Gets the event data (the current time through numDays past now)
 	 * from the user's enabled calendars.
-	 * 
+	 *
 	 * @param numDays
 	 * The number of days after the current time to get the events from
 	 * @return
@@ -307,7 +214,7 @@ public class CalendarUtilities {
 	 * The color data the calendar stores is an int. We want it in hex so that
 	 * we can compare it to the data Google has posted in their API. So we convert
 	 * it to hex and do some math to get it into the form Google shares.
-	 * 
+	 *
 	 * @param color
 	 * The string the calendar database stores
 	 * @return
@@ -321,9 +228,9 @@ public class CalendarUtilities {
 
 		try {
 			int hex = Integer.parseInt(color);
-			hex &= 0x00FFFFFF;
+			hex &= 0xFFFFFFFF;
 
-			return String.format("%06x", hex);
+			return String.format("#%08x", hex);
 		} catch (NumberFormatException e) {
 			return "";
 		}
@@ -331,7 +238,7 @@ public class CalendarUtilities {
 
 	/**
 	 * Actually get the events from the given calendar
-	 * 
+	 *
 	 * @param context
 	 * @param cal
 	 * The calendar to get events from
@@ -393,11 +300,11 @@ public class CalendarUtilities {
 	/**
 	 * Oftentimes all-day events have messed up starting times, which can cause
 	 * them to be displayed before events that happen in the previous day.
-	 * 
+	 *
 	 * The times are usually off by the Timezone offset, so we should be able
 	 * to just subtract the offset from the given event time, and it should be
 	 * all fixed.
-	 * 
+	 *
 	 * @param event
 	 * The date to modify
 	 */
@@ -414,42 +321,21 @@ public class CalendarUtilities {
 	/**
 	 * Gets the resourceId of for the given color.  If we don't have a record of the
 	 * given color, we default to blue.
-	 * 
-	 * @param color
-	 * The color to get the resource id of
-	 * @return
-	 * The resource id of for the given color, if it exists. Blue otherwise.
-	 */
-	public static int getColorBarResource(String color) {
-		if (colorBarResources.containsKey(color)) {
-			return colorBarResources.get(color);
-		} else {
-			return colorBarResources.get("060d5e");
-		}
-	}
-
-	/**
-	 * Gets the resourceId of for the given color.  If we don't have a record of the
-	 * given color, we default to blue.
-	 * 
+	 *
 	 * @param color
 	 * The color to get the resource id of
 	 * @return
 	 * The resource id of for the given color, if it exists. Blue otherwise.
 	 */
 	public static int getColorCalendarResource(String color) {
-		if (colorCalendarResources.containsKey(color)) {
-			return colorCalendarResources.get(color);
-		} else {
-			return colorCalendarResources.get("060d5e");
-		}
+		return R.drawable.agenda_calendar_01;
 	}
 
 	/**
 	 * Gets the time of the start and end of the given event, formatted in this manner:
 	 * "All Day" if the event is an all day event
 	 * "HH:MM AM/PM - HH:MM AM/PM"
-	 * 
+	 *
 	 * @param d
 	 * The event to get the time for
 	 * @return
@@ -485,7 +371,7 @@ public class CalendarUtilities {
 	/**
 	 * Formats the given Event's date as: <br />
 	 * {Month} {Day}
-	 * 
+	 *
 	 * @param d
 	 * The Event to format the date of
 	 * @return
@@ -500,7 +386,7 @@ public class CalendarUtilities {
 	/**
 	 * Figures out whether the given Event is today or tomorrow.  If neither,
 	 * returns the formatted date string.
-	 * 
+	 *
 	 * @param d
 	 * The event to check
 	 * @return

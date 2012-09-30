@@ -14,6 +14,7 @@
  */
 package org.reber.agenda.list;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -21,6 +22,8 @@ import org.reber.agenda.R;
 import org.reber.agenda.util.CalendarUtilities;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,7 +32,7 @@ import android.widget.TextView;
 
 /**
  * A representation of an event in a user's calendar.
- * 
+ *
  * @author brianreber
  */
 public class Event extends ListItem {
@@ -39,11 +42,11 @@ public class Event extends ListItem {
 	private boolean allDay;
 	private String color;
 	private String location;
-	private int id;
+	private final int id;
 
 	/**
 	 * Creates an event with the given values.
-	 * 
+	 *
 	 * @param title
 	 * The title of the event
 	 * @param start
@@ -69,7 +72,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Gets the location of this event
-	 * 
+	 *
 	 * @return
 	 */
 	public String getLocation() {
@@ -78,7 +81,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Sets the location of this event
-	 * 
+	 *
 	 * @param location
 	 */
 	public void setLocation(String location) {
@@ -87,7 +90,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Gets the color of this event
-	 * 
+	 *
 	 * @return
 	 */
 	public String getColor() {
@@ -96,7 +99,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Sets the color of this event
-	 * 
+	 *
 	 * @param color
 	 */
 	public void setColor(String color) {
@@ -105,7 +108,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Gets the starting date
-	 * 
+	 *
 	 * @return
 	 */
 	public GregorianCalendar getStart() {
@@ -114,7 +117,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Sets the starting date
-	 * 
+	 *
 	 * @param start
 	 */
 	public void setStart(GregorianCalendar start) {
@@ -123,7 +126,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Gets the ending date
-	 * 
+	 *
 	 * @return
 	 */
 	public GregorianCalendar getEnd() {
@@ -132,7 +135,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Sets the ending date
-	 * 
+	 *
 	 * @param end
 	 */
 	public void setEnd(GregorianCalendar end) {
@@ -141,7 +144,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Gets whether this is an all day event
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isAllDay() {
@@ -150,7 +153,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Sets whether this is an all day event
-	 * 
+	 *
 	 * @param allDay
 	 */
 	public void setAllDay(boolean allDay) {
@@ -159,7 +162,7 @@ public class Event extends ListItem {
 
 	/**
 	 * Compares the start time of this event to the given event.
-	 * 
+	 *
 	 * @param another
 	 * The event to compare to
 	 */
@@ -216,7 +219,12 @@ public class Event extends ListItem {
 			labelLocation.setText(location);
 		}
 
-		iv.setImageResource(CalendarUtilities.getColorBarResource(getColor()));
+		int[] colors = new int[10 * 60];
+		Arrays.fill(colors, Color.parseColor(getColor()));
+
+		Bitmap bm = Bitmap.createBitmap(colors, 10, 60, Bitmap.Config.RGB_565);
+
+		iv.setImageBitmap(bm);
 
 		return v;
 	}
