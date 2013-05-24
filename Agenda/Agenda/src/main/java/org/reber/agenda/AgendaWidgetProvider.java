@@ -210,8 +210,6 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
                         util.getFormattedTimeString(context, first));
 
                 views.setTextViewText(R.id.item_title_no_loc, first.getTitle());
-                views.setViewVisibility(R.id.event_num_no_loc, View.INVISIBLE);
-                views.setViewVisibility(R.id.widgetGoBackToFirstNoLoc, View.INVISIBLE);
             } else {
                 views.setViewVisibility(R.id.event_view_text_no_loc, View.INVISIBLE);
                 views.setViewVisibility(R.id.event_view_text, View.VISIBLE);
@@ -221,8 +219,6 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
                         util.getFormattedTimeString(context, first));
 
                 views.setTextViewText(R.id.item_title, first.getTitle());
-                views.setViewVisibility(R.id.event_num, View.INVISIBLE);
-                views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
             }
 
             views.setImageViewBitmap(R.id.calendar_item, CalendarUtilities.getColorCalendarBitmap(context, first.getColor()));
