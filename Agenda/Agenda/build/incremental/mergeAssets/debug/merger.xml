@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/breber/git/Android-Agenda/Agenda/src/main/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/breber/git/Android-Agenda/Agenda/src/debug/assets" />
+    </dataSet>
+
+</merger>

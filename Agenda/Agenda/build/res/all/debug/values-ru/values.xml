@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="allDay">Весь день</string>
+    <string name="appName">Агенда</string>
+    <string name="appSettings">Настройки</string>
+    <string name="appToOpen">Приложение, запускаемое при нажатии на виджет</string>
+    <string name="changes">Изменения</string>
+    <string name="chooseCalendars">Выбрать календари</string>
+    <string name="chooseCalendarsWidget">Календари, отображаемые в окне виджета</string>
+    <string name="emptyMsg">Нет предстоящих событий</string>
+    <string name="enableClick">Обзор события при нажатии</string>
+    <string name="invalidNumberOfDays">Неверное кол-во дней</string>
+    <string name="large">Крупный</string>
+    <string name="medium">Средний</string>
+    <string name="newEvent">Новое событие</string>
+    <string name="noCalendarsSelected">Календари не выбраны</string>
+    <string name="none">Отсутствует</string>
+    <string name="now">Сейчас</string>
+    <string name="numDaysHint2">2 дня</string>
+    <string name="numDaysToDisplay">Кол-во отображаемых дней</string>
+    <string name="ok">Сохранить</string>
+    <string name="refresh">Обновить</string>
+    <string name="save">Сохранить</string>
+    <string name="small">Мелкий</string>
+    <string name="today">Сегодня: </string>
+    <string name="tomorrow">Завтра: </string>
+    <string name="upcomingEvents">События на ближайшие %d дней</string>
+    <string name="use24Hour">24-часовой формат</string>
+    <string name="widgetBgColor">Цвет фона виджета</string>
+    <string name="widgetChooseColor">Выбрать цвет</string>
+    <string name="widgetSettings">Настройки виджета</string>
+    <string name="widgetTextColor">Цвет текста виджета</string>
+    <string name="widgetTransparency">Прозрачность виджета</string>
+
+</resources>

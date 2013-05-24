@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2012 Brian Reber
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms are permitted
+ * provided that the above copyright notice and this paragraph are
+ * duplicated in all such forms and that any documentation,
+ * advertising materials, and other materials related to such
+ * distribution and use acknowledge that the software was developed
+ * by Brian Reber.  
+ * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/configureLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent" >
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/enablewidgets"
+        android:layout_alignTop="@+id/configureLayout" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+
+            <TextView
+                android:id="@+id/widgetSettingsLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:text="@string/widgetSettings"
+                android:textSize="18sp"
+                android:textStyle="bold" >
+            </TextView>
+
+            <TextView
+                android:id="@+id/chooseLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetSettingsLabel"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:paddingBottom="5dip"
+                android:text="@string/appToOpen" >
+            </TextView>
+
+            <Spinner
+                android:id="@+id/recommendedapps"
+                style="@android:style/Widget.DeviceDefault.Spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chooseLabel"
+                android:layout_marginBottom="5dip" >
+            </Spinner>
+
+            <TextView
+                android:id="@+id/widgetChooseCalsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommendedapps"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:text="@string/chooseCalendarsWidget" >
+            </TextView>
+
+            <Button
+                android:id="@+id/widgetChooseCalsButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetChooseCalsLabel"
+                android:layout_marginBottom="5dip"
+                android:text="@string/chooseCalendars" >
+            </Button>
+
+            <RelativeLayout
+                android:id="@+id/widgetTextColorRelativeLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetChooseCalsButton" >
+
+                <TextView
+                    android:id="@+id/widgetTextColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:text="@string/widgetTextColor" >
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/widgetTextColorSwatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@+id/widgetTextColor"
+                    android:maxHeight="10dip"
+                    android:maxWidth="10dip"
+                    android:minHeight="10dip"
+                    android:minWidth="10dip" >
+                </ImageView>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/widgetTextColorButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetTextColorRelativeLayout"
+                android:layout_marginBottom="5dip"
+                android:text="@string/widgetChooseColor" >
+            </Button>
+
+            <RelativeLayout
+                android:id="@+id/widgetToHideIfNoBG"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetTextColorButton" >
+
+                <RelativeLayout
+                    android:id="@+id/widgetBGColorRelativeLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/widgetBGColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dip"
+                        android:layout_marginRight="5dip"
+                        android:text="@string/widgetBgColor" >
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/widgetBGColorSwatch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dip"
+                        android:layout_toRightOf="@+id/widgetBGColor"
+                        android:maxHeight="10dip"
+                        android:maxWidth="10dip"
+                        android:minHeight="10dip"
+                        android:minWidth="10dip" >
+                    </ImageView>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/widgetBGColorButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/widgetBGColorRelativeLayout"
+                    android:layout_marginBottom="5dip"
+                    android:text="@string/widgetChooseColor" >
+                </Button>
+
+                <TextView
+                    android:id="@+id/widgetTransparency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/widgetBGColorButton"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:text="@string/widgetTransparency" >
+                </TextView>
+
+                <SeekBar
+                    android:id="@+id/widgetTransparencyBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/widgetTransparency"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:max="256"
+                    android:progress="128" >
+                </SeekBar>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/widgetNumDaysLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetToHideIfNoBG"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:text="@string/numDaysToDisplay" >
+            </TextView>
+
+            <EditText
+                android:id="@+id/widgetNumDays"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetNumDaysLabel"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="5dip"
+                android:hint="@string/numDaysHint2"
+                android:inputType="number"
+                android:nextFocusLeft="@+id/text"
+                android:nextFocusUp="@+id/text"
+                android:singleLine="true" >
+            </EditText>
+
+            <CheckBox
+                android:id="@+id/widgetUse24Hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/widgetNumDays"
+                android:layout_marginBottom="5dip"
+                android:text="@string/use24Hour" >
+            </CheckBox>
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/enablewidgets"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:text="@string/ok"
+        android:textSize="25dip" >
+    </Button>
+
+</RelativeLayout>

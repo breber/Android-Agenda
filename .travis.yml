@@ -12,4 +12,4 @@ before_install:
 script:
   - export ANDROID_HOME=$(pwd)/android-sdk-linux
   - cd Agenda
-  - ../gradlew assemble
+  - ./gradlew assemble
