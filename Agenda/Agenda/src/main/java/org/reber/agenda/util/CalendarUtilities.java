@@ -321,7 +321,7 @@ public class CalendarUtilities {
      * The resource id of for the given color, if it exists. Blue otherwise.
      */
     public static Bitmap getColorCalendarBitmap(Context ctx, String color) {
-        Bitmap bm = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.calendar_icon_01);
+        Bitmap bm = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.calendaricon);
         bm = bm.copy(bm.getConfig(), true);
         int[] pixels = new int[bm.getWidth() * bm.getHeight()];
 
@@ -329,7 +329,7 @@ public class CalendarUtilities {
 
         for (int i = 0; i < pixels.length; i++) {
             int c = pixels[i];
-            if ((c & 0x00FFFFFF) == 0xa32929) {
+            if ((c & 0x00FFFFFF) == 0xFF) {
                 pixels[i] = Color.parseColor(color);
             }
         }
