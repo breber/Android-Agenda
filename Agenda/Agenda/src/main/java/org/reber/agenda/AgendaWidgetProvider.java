@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import android.graphics.BitmapFactory;
 import org.reber.agenda.list.Event;
 import org.reber.agenda.util.CalendarUtilities;
 import org.reber.agenda.util.Constants;
@@ -169,19 +170,11 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.agenda_frame, pendingIntent);
         }
 
-        if (context.getResources().getIntArray(R.array.versions)[0] > widgetVersion) {
-            // On the first time opening the widget, we need to have them select their preferences
-            //			views.setViewVisibility(R.id.event_view, View.INVISIBLE);
-            //			views.setViewVisibility(R.id.empty_msg, View.VISIBLE);
-            //			views.setTextViewText(R.id.empty_msg, "Please re-add widget to home screen");
-
-            Editor edit = pref.edit();
-            edit.putInt(Constants.Widget.VERSION, context.getResources().getIntArray(R.array.versions)[0]);
-            edit.commit();
-        } else if (events == null || events.isEmpty()) {
+        if (events == null || events.isEmpty()) {
             // There aren't any events in the near future, so we display the default message
             views.setViewVisibility(R.id.event_view, View.INVISIBLE);
             views.setViewVisibility(R.id.empty_msg, View.VISIBLE);
+            views.setImageViewBitmap(R.id.calendar_item, BitmapFactory.decodeResource(context.getResources(), R.drawable.calendaricon));
         } else {
             views.setViewVisibility(R.id.empty_msg, View.INVISIBLE);
             views.setViewVisibility(R.id.event_view, View.VISIBLE);

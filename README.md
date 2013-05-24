@@ -10,6 +10,12 @@ Download the app from the [Google Play Store](https://market.android.com/details
 
 ## Changelog
 
+### Version 2.2.1
+* Fix calendar colors
+
+### Version 2.2.0
+* Clean up the UI on newer Android devices
+
 ### Version 1.2.1
 * When opening the App by clicking on the widget, events from that widget's group of selected calendars is displayed
   * This differs from what was done in the past. In the past, opening the app (by any means) would display the events from the group of calendars specified in the app's preferences

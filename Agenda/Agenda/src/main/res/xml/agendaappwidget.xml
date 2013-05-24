@@ -17,4 +17,6 @@
     android:updatePeriodMillis="900000"
     android:minHeight="40dp"
     android:minWidth="250dp"
-    android:configure="org.reber.agenda.AgendaConfigure"></appwidget-provider>
+    android:configure="org.reber.agenda.AgendaConfigure"
+    android:resizeMode="horizontal"
+    android:widgetCategory="home_screen"></appwidget-provider>
