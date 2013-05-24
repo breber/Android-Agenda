@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  * Copyright (C) 2011 Brian Reber
  * All rights reserved.
  *
@@ -19,7 +18,7 @@
     android:paddingBottom="6dip"
     android:paddingLeft="0px"
     android:paddingRight="6dip"
-    android:paddingTop="6dip" >
+    android:paddingTop="6dip">
 
     <ImageView
         android:id="@+id/package_icon"
@@ -34,7 +33,7 @@
         android:layout_height="50dip"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/app_name"

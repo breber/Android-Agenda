@@ -20,16 +20,16 @@ import android.os.Bundle;
 /**
  * This is the Activity that gets loaded when the user clicks on the app icon,
  * just like they would do to open any other application.
- * 
+ *
  * @author brianreber
  */
 public class SettingsActivity extends Activity {
 
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.preferences);
-	}
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.preferences);
+    }
 
 }

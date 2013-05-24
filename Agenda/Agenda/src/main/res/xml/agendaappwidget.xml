@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  * Copyright (C) 2011 Brian Reber
  * All rights reserved.
  *
@@ -14,7 +13,8 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-	android:initialLayout="@layout/agenda"
-	android:updatePeriodMillis="900000" android:minHeight="40dp"
-	android:minWidth="250dp" android:configure="org.reber.agenda.AgendaConfigure">
-</appwidget-provider>
+    android:initialLayout="@layout/agenda"
+    android:updatePeriodMillis="900000"
+    android:minHeight="40dp"
+    android:minWidth="250dp"
+    android:configure="org.reber.agenda.AgendaConfigure"></appwidget-provider>

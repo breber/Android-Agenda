@@ -25,55 +25,55 @@ import android.widget.TextView;
 
 /**
  * Represents a separator in the ListView
- * 
+ *
  * @author brianreber
  */
 public class ListSeparator extends ListItem {
 
-	/**
-	 * Creates a new Separator for the ListView with the given title
-	 * 
-	 * @param title
-	 */
-	public ListSeparator(String title) {
-		this.title = title;
-	}
+    /**
+     * Creates a new Separator for the ListView with the given title
+     *
+     * @param title
+     */
+    public ListSeparator(String title) {
+        this.title = title;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.reber.agenda.ListItem#getType()
-	 */
-	@Override
-	public ItemType getType() {
-		return ItemType.SEPARATOR;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(ListItem another) {
-		return 0;
-	}
+    /* (non-Javadoc)
+     * @see org.reber.agenda.ListItem#getType()
+     */
+    @Override
+    public ItemType getType() {
+        return ItemType.SEPARATOR;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.reber.agenda.ListItem#getLayout(android.content.Context, android.view.ViewGroup)
-	 */
-	@Override
-	public LinearLayout getLayout(Context ctx, ViewGroup parent, CalendarUtilities util) {
-		LinearLayout v = (LinearLayout) LayoutInflater.from(ctx).inflate(R.layout.separator, parent, false);
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(ListItem another) {
+        return 0;
+    }
 
-		TextView label  = (TextView) v.findViewById(R.id.label);
-		label.setText(getTitle());
-		
-		return v;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return title;
-	}
+    /* (non-Javadoc)
+     * @see org.reber.agenda.ListItem#getLayout(android.content.Context, android.view.ViewGroup)
+     */
+    @Override
+    public LinearLayout getLayout(Context ctx, ViewGroup parent, CalendarUtilities util) {
+        LinearLayout v = (LinearLayout) LayoutInflater.from(ctx).inflate(R.layout.separator, parent, false);
+
+        TextView label  = (TextView) v.findViewById(R.id.label);
+        label.setText(getTitle());
+
+        return v;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return title;
+    }
 
 }

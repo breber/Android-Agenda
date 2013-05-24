@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
  * Copyright (C) 2011 Brian Reber
  * All rights reserved.
  *
@@ -14,42 +13,42 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <resources>
-	<string name="appName">Agenda</string>
-	<string name="today">Today: </string>
-	<!-- <string name="tomorrowAbbreviation">Tmrw: </string> -->
-	<string name="tomorrow">Tomorrow: </string>
-	<string name="allDay">All Day</string>
-	<string name="now">Now</string>
-	<string name="emptyMsg">No upcoming events</string>
-	<string name="noCalendarsSelected">No calendars selected</string>
-	<string name="changes">Changes</string>
-	<string name="ok">OK</string>
-	<!-- <string name="cancel">Cancel</string> -->
-	<string name="appToOpen">App to open when the widget is clicked</string>
-	<string name="widgetSettings">Widget Configuration</string>
-	<string name="appSettings">Settings</string>
-	<string name="upcomingEvents">Events coming up within the next %d days</string>
-	<string name="refresh">Refresh</string>
-	<string name="chooseCalendars">Choose Calendars</string>
-	<string name="chooseCalendarsWidget">Calendars to Display on the Widget</string>
-	<string name="widgetTextColor">Widget Text Color</string>
-	<string name="widgetChooseColor">Choose a Color</string>
-	<string name="widgetBgColor">Widget Background Color</string>
-	<string name="widgetTransparency">Widget Transparency</string>
-	<string name="numDaysToDisplay">Number of Days to Display</string>
-	<string name="numDaysHint2">2 days</string>
-	<!-- <string name="numDaysHint7">7 days</string> -->
-	<string name="use24Hour">Use 24-hour format</string>
-	<!-- <string name="showMultipleEvents">Multiple events</string> -->
-	<string name="invalidNumberOfDays">Invalid number of days</string>
-	<!-- <string name="chooseTextSize">Widget Text Size</string> -->
-	<string name="none">None</string>
-	<string name="large">Large</string>
-	<string name="medium">Medium</string>
-	<string name="small">Small</string>
-	<string name="save">Save</string>
-	<string name="enableClick">Open event on click</string>
-	<string name="newEvent">New Event</string>
-	
-	<string name="updateMessage"></string>
+    <string name="appName">Agenda</string>
+    <string name="today">Today:</string>
+    <!-- <string name="tomorrowAbbreviation">Tmrw: </string> -->
+    <string name="tomorrow">Tomorrow:</string>
+    <string name="allDay">All Day</string>
+    <string name="now">Now</string>
+    <string name="emptyMsg">No upcoming events</string>
+    <string name="noCalendarsSelected">No calendars selected</string>
+    <string name="changes">Changes</string>
+    <string name="ok">OK</string>
+    <!-- <string name="cancel">Cancel</string> -->
+    <string name="appToOpen">App to open when the widget is clicked</string>
+    <string name="widgetSettings">Widget Configuration</string>
+    <string name="appSettings">Settings</string>
+    <string name="upcomingEvents">Events coming up within the next %d days</string>
+    <string name="refresh">Refresh</string>
+    <string name="chooseCalendars">Choose Calendars</string>
+    <string name="chooseCalendarsWidget">Calendars to Display on the Widget</string>
+    <string name="widgetTextColor">Widget Text Color</string>
+    <string name="widgetChooseColor">Choose a Color</string>
+    <string name="widgetBgColor">Widget Background Color</string>
+    <string name="widgetTransparency">Widget Transparency</string>
+    <string name="numDaysToDisplay">Number of Days to Display</string>
+    <string name="numDaysHint2">2 days</string>
+    <!-- <string name="numDaysHint7">7 days</string> -->
+    <string name="use24Hour">Use 24-hour format</string>
+    <!-- <string name="showMultipleEvents">Multiple events</string> -->
+    <string name="invalidNumberOfDays">Invalid number of days</string>
+    <!-- <string name="chooseTextSize">Widget Text Size</string> -->
+    <string name="none">None</string>
+    <string name="large">Large</string>
+    <string name="medium">Medium</string>
+    <string name="small">Small</string>
+    <string name="save">Save</string>
+    <string name="enableClick">Open event on click</string>
+    <string name="newEvent">New Event</string>
+
+    <string name="updateMessage"></string>
 </resources>

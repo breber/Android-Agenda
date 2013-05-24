@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  * Copyright (C) 2011 Brian Reber
  * All rights reserved.
  *
@@ -15,20 +14,18 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <Button
         android:id="@+id/saveSelectedCalendars"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save" >
-    </Button>
+        android:text="@string/save"></Button>
 
     <ListView
         android:id="@+id/ListView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/saveSelectedCalendars" >
-    </ListView>
+        android:layout_below="@+id/saveSelectedCalendars"></ListView>
 
 </RelativeLayout>

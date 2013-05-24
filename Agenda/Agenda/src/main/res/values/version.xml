@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  * Copyright (C) 2011 Brian Reber
  * All rights reserved.
  *
@@ -14,7 +13,7 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <resources>
-	<integer-array name="versions">
-		<item>11</item>
-	</integer-array>
+    <integer-array name="versions">
+        <item>11</item>
+    </integer-array>
 </resources>

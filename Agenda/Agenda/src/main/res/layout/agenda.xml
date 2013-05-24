@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
  * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
@@ -16,7 +15,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/agenda_frame"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <RelativeLayout
         android:id="@+id/image_frame"
@@ -24,7 +23,7 @@
         android:layout_height="fill_parent"
         android:gravity="center_horizontal|center_vertical"
         android:paddingBottom="9dip"
-        android:paddingTop="9dip" >
+        android:paddingTop="9dip">
 
         <ImageView
             android:id="@+id/calendar_item"
@@ -39,7 +38,7 @@
             android:id="@+id/cal_agenda_text"
             android:layout_width="fill_parent"
             android:layout_height="27dip"
-            android:layout_marginLeft="9dip" >
+            android:layout_marginLeft="9dip">
 
             <TextView
                 android:id="@+id/month_agenda"
@@ -48,8 +47,7 @@
                 android:gravity="center_horizontal|bottom"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:visibility="visible" >
-            </TextView>
+                android:visibility="visible"></TextView>
         </RelativeLayout>
 
         <TextView
@@ -63,8 +61,7 @@
             android:textColor="@color/black"
             android:textSize="21sp"
             android:textStyle="bold"
-            android:visibility="visible" >
-        </TextView>
+            android:visibility="visible"></TextView>
     </RelativeLayout>
 
     <RelativeLayout
@@ -73,7 +70,7 @@
         android:layout_height="fill_parent"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/image_frame"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/empty_msg"
@@ -93,7 +90,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip"
             android:gravity="center_vertical"
-            android:visibility="invisible" >
+            android:visibility="invisible">
 
             <RelativeLayout
                 android:id="@+id/event_view_text"
@@ -101,12 +98,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12.0dip"
-                android:gravity="center_vertical" >
+                android:gravity="center_vertical">
 
                 <RelativeLayout
                     android:id="@+id/event_top_line"
                     android:layout_width="fill_parent"
-                    android:layout_height="17dip" >
+                    android:layout_height="17dip">
 
                     <TextView
                         android:id="@+id/when"
@@ -137,7 +134,7 @@
                     android:id="@+id/event_bottom_line"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/item_title" >
+                    android:layout_below="@+id/item_title">
 
                     <TextView
                         android:id="@+id/where"
@@ -160,12 +157,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12.0dip"
                 android:gravity="center_vertical"
-                android:visibility="invisible" >
+                android:visibility="invisible">
 
                 <RelativeLayout
                     android:id="@+id/event_top_line_no_loc"
                     android:layout_width="fill_parent"
-                    android:layout_height="17dip" >
+                    android:layout_height="17dip">
 
                     <TextView
                         android:id="@+id/when_no_loc"

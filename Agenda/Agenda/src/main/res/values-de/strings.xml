@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
  * German translation by Ralf Rosenberg <rosenmuell@t-online.de>
  *
  * Copyright (C) 2011 Brian Reber
@@ -16,40 +15,40 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
 <resources>
-	<string name="appName">Agenda</string>
-	<string name="today">Heute: </string>
-	<!-- <string name="tomorrowAbbreviation">Morgen: </string> -->
-	<string name="tomorrow">Morgen: </string>
-	<string name="allDay">Ganzen Tag</string>
-	<string name="now">Jetzt</string>
-	<string name="emptyMsg">Keine anstehenden Ereignisse</string>
-	<string name="noCalendarsSelected">Kein Kalender ausgewählt</string>
-	<string name="changes">Veränderungen</string>
-	<string name="ok">OK</string>
-	<!-- <string name="cancel">Abbrechen</string> -->
-	<string name="appToOpen">App öffnen, wenn Widget gedrückt wird</string>
-	<string name="widgetSettings">Widget Konfiguration</string>
-	<string name="appSettings">Einstellungen</string>
-	<string name="upcomingEvents">Ereignisse der nächsten %d Tage</string>
-	<string name="refresh">Aktualisieren</string>
-	<string name="chooseCalendars">Kalender auswählen</string>
-	<string name="chooseCalendarsWidget">Kalender für Widget wählen</string>
-	<string name="widgetTextColor">Widget Textfarbe</string>
-	<string name="widgetChooseColor">Wähle eine Farbe</string>
-	<string name="widgetBgColor">Widget Hintergrundfarbe</string>
-	<string name="widgetTransparency">Widget Transparenz</string>
-	<string name="numDaysToDisplay">Anzuzeigene Anzahl der Tage</string>
-	<string name="numDaysHint2">2 Tage</string>
-	<!-- <string name="numDaysHint7">7 Tage</string> -->
-	<string name="use24Hour">24h Format Verwenden</string>
-	<!-- <string name="showMultipleEvents">Aktiviere mehrfache Ereignisse</string> -->
-	<string name="invalidNumberOfDays">Ungültige Anzahl der Tage</string>
-	<!-- <string name="chooseTextSize">Widget Textgröße</string> -->
-	<string name="none">Keine</string>
-	<string name="large">Groß</string>
-	<string name="medium">Mittel</string>
-	<string name="small">Klein</string>
-	<string name="save">Speichern</string>
-	<string name="enableClick">Öffne Ereignis</string>
-	<string name="newEvent">Neues Ereignis</string>
+    <string name="appName">Agenda</string>
+    <string name="today">Heute:</string>
+    <!-- <string name="tomorrowAbbreviation">Morgen: </string> -->
+    <string name="tomorrow">Morgen:</string>
+    <string name="allDay">Ganzen Tag</string>
+    <string name="now">Jetzt</string>
+    <string name="emptyMsg">Keine anstehenden Ereignisse</string>
+    <string name="noCalendarsSelected">Kein Kalender ausgewählt</string>
+    <string name="changes">Veränderungen</string>
+    <string name="ok">OK</string>
+    <!-- <string name="cancel">Abbrechen</string> -->
+    <string name="appToOpen">App öffnen, wenn Widget gedrückt wird</string>
+    <string name="widgetSettings">Widget Konfiguration</string>
+    <string name="appSettings">Einstellungen</string>
+    <string name="upcomingEvents">Ereignisse der nächsten %d Tage</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="chooseCalendars">Kalender auswählen</string>
+    <string name="chooseCalendarsWidget">Kalender für Widget wählen</string>
+    <string name="widgetTextColor">Widget Textfarbe</string>
+    <string name="widgetChooseColor">Wähle eine Farbe</string>
+    <string name="widgetBgColor">Widget Hintergrundfarbe</string>
+    <string name="widgetTransparency">Widget Transparenz</string>
+    <string name="numDaysToDisplay">Anzuzeigene Anzahl der Tage</string>
+    <string name="numDaysHint2">2 Tage</string>
+    <!-- <string name="numDaysHint7">7 Tage</string> -->
+    <string name="use24Hour">24h Format Verwenden</string>
+    <!-- <string name="showMultipleEvents">Aktiviere mehrfache Ereignisse</string> -->
+    <string name="invalidNumberOfDays">Ungültige Anzahl der Tage</string>
+    <!-- <string name="chooseTextSize">Widget Textgröße</string> -->
+    <string name="none">Keine</string>
+    <string name="large">Groß</string>
+    <string name="medium">Mittel</string>
+    <string name="small">Klein</string>
+    <string name="save">Speichern</string>
+    <string name="enableClick">Öffne Ereignis</string>
+    <string name="newEvent">Neues Ereignis</string>
 </resources>

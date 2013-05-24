@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  * Copyright (C) 2012 Brian Reber
  * All rights reserved.
  *
@@ -16,14 +15,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <fragment
         android:id="@+id/prefsFrag"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         class="org.reber.agenda.PreferencesFragment"
-        android:visibility="visible" >
-    </fragment>
+        android:visibility="visible"></fragment>
 
 </LinearLayout>

@@ -2,22 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.reber.agenda"
     android:versionCode="24"
-    android:versionName="2.1.0" >
+    android:versionName="2.1.0">
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" >
-    </uses-sdk>
+        android:targetSdkVersion="17" />
 
     <application
         android:icon="@drawable/icon"
-        android:label="@string/appName" >
+        android:label="@string/appName">
         <activity
             android:name=".AgendaActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/appName" >
+            android:label="@string/appName">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +26,7 @@
         <activity
             android:name=".SettingsActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/appSettings" >
+            android:label="@string/appSettings">
             <intent-filter>
                 <action android:name="android.intent.action.CHOOSER" />
             </intent-filter>
@@ -36,7 +35,7 @@
             android:name="AgendaConfigure"
             android:configChanges="keyboardHidden|orientation"
             android:label="AgndaWidgetConfig"
-            android:theme="@android:style/Theme.DeviceDefault.DialogWhenLarge.NoActionBar" >
+            android:theme="@android:style/Theme.DeviceDefault.DialogWhenLarge.NoActionBar">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -44,7 +43,7 @@
 
         <receiver
             android:name=".AgendaWidgetProvider"
-            android:label="@string/appName" >
+            android:label="@string/appName">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="org.reber.agenda.AGENDA_WIDGET_UPDATE" />
