@@ -209,7 +209,7 @@ public class Event extends ListItem {
 		ImageView iv = (ImageView) v.findViewById(R.id.icon);
 		TextView labelLocation = (TextView) v.findViewById(R.id.labelLocation);
 
-		if (location == null || (location != null && location.equals(""))) {
+		if (location == null || location.equals("")) {
 			label.setText(text);
 			labelDate.setText(date);
 			labelLocation.setHeight(0);

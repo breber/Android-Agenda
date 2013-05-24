@@ -14,22 +14,6 @@
  */
 package org.reber.agenda.util;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.PriorityQueue;
-import java.util.Set;
-
-import org.reber.agenda.AndroidCalendar;
-import org.reber.agenda.R;
-import org.reber.agenda.list.Event;
-
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -37,11 +21,20 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.util.Log;
+import org.reber.agenda.AndroidCalendar;
+import org.reber.agenda.R;
+import org.reber.agenda.list.Event;
+
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * A class containing some simple utilities that deal with Calendar data.
@@ -327,9 +320,23 @@ public class CalendarUtilities {
 	 * @return
 	 * The resource id of for the given color, if it exists. Blue otherwise.
 	 */
-	public static int getColorCalendarResource(String color) {
-		// TODO: dynamically create based on color
-		return R.drawable.calendar_icon_01;
+	public static Bitmap getColorCalendarBitmap(Context ctx, String color) {
+        Bitmap bm = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.calendar_icon_01);
+        bm = bm.copy(bm.getConfig(), true);
+        int[] pixels = new int[bm.getWidth() * bm.getHeight()];
+
+        bm.getPixels(pixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
+
+        for (int i = 0; i < pixels.length; i++) {
+            int c = pixels[i];
+            if ((c & 0x00FFFFFF) == 0xa32929) {
+                pixels[i] = Color.parseColor(color);
+            }
+        }
+
+        bm.setPixels(pixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
+
+        return bm;
 	}
 
 	/**

@@ -29,5 +29,5 @@ proguard/
 *.ipr
 *.iws
 .idea/
-Agenda/build/
+Agenda/Agenda/build/
 .gradle/

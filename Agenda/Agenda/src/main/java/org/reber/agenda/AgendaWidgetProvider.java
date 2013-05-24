@@ -225,7 +225,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 				views.setViewVisibility(R.id.widgetGoBackToFirst, View.INVISIBLE);
 			}
 
-			views.setImageViewResource(R.id.calendar_item, CalendarUtilities.getColorCalendarResource(first.getColor()));
+			views.setImageViewBitmap(R.id.calendar_item, CalendarUtilities.getColorCalendarBitmap(context, first.getColor()));
 		}
 
 		// Tell the AppWidgetManager to perform an update on the current App Widget
