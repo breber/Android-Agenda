@@ -10,10 +10,10 @@ Download the app from the [Google Play Store](https://market.android.com/details
 
 ## Changelog
 
-### Version 2.2.1
+### Version 2.2.0
 * Fix calendar colors
 
-### Version 2.2.0
+### Version 2.1.0
 * Clean up the UI on newer Android devices
 
 ### Version 1.2.1
