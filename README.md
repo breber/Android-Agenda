@@ -72,7 +72,7 @@ Download the app from the [Google Play Store](https://market.android.com/details
 
 ### Version 1.0.3
 
-*Bug fixes
+* Bug fixes
 
 ### Version 1.0.2
 
