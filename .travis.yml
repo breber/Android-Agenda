@@ -1,0 +1,15 @@
+language: java
+jdk:
+  - openjdk7
+
+before_install:
+  # Install base Android SDK
+  - sudo apt-get update -qq
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+  - wget https://dl.dropboxusercontent.com/u/2202216/android-sdk-linux.zip
+  - unzip android-sdk-linux.zip
+
+script:
+  - export ANDROID_HOME=$(pwd)/android-sdk-linux
+  - cd Agenda
+  - ../gradlew assemble
