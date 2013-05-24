@@ -22,7 +22,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/enablewidgets"
-        android:layout_alignTop="@+id/configureLayout">
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -30,20 +30,9 @@
             android:padding="5dip">
 
             <TextView
-                android:id="@+id/widgetSettingsLabel"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:text="@string/widgetSettings"
-                android:textSize="18sp"
-                android:textStyle="bold"></TextView>
-
-            <TextView
                 android:id="@+id/chooseLabel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/widgetSettingsLabel"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
                 android:paddingBottom="5dip"
