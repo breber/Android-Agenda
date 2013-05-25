@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/upcomingEvents"
-        android:textSize="15dip"></TextView>
+        android:textSize="15sp" />
 
     <RelativeLayout
         android:id="@+id/listViewRelative"
@@ -35,7 +35,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             class="org.reber.agenda.list.AgendaListFragment"
-            android:visibility="visible"></fragment>
+            android:visibility="visible" />
     </RelativeLayout>
 
 </RelativeLayout>

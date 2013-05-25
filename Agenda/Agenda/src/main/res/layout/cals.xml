@@ -20,12 +20,12 @@
         android:id="@+id/saveSelectedCalendars"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save"></Button>
+        android:text="@string/save" />
 
     <ListView
         android:id="@+id/ListView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/saveSelectedCalendars"></ListView>
+        android:layout_below="@+id/saveSelectedCalendars" />
 
 </RelativeLayout>

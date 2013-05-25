@@ -36,7 +36,7 @@
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
                 android:paddingBottom="5dip"
-                android:text="@string/appToOpen"></TextView>
+                android:text="@string/appToOpen" />
 
             <Spinner
                 android:id="@+id/recommendedapps"
@@ -44,7 +44,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/chooseLabel"
-                android:layout_marginBottom="5dip"></Spinner>
+                android:layout_marginBottom="5dip" />
 
             <TextView
                 android:id="@+id/widgetChooseCalsLabel"
@@ -53,7 +53,7 @@
                 android:layout_below="@+id/recommendedapps"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
-                android:text="@string/chooseCalendarsWidget"></TextView>
+                android:text="@string/chooseCalendarsWidget" />
 
             <Button
                 android:id="@+id/widgetChooseCalsButton"
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/widgetChooseCalsLabel"
                 android:layout_marginBottom="5dip"
-                android:text="@string/chooseCalendars"></Button>
+                android:text="@string/chooseCalendars" />
 
             <RelativeLayout
                 android:id="@+id/widgetTextColorRelativeLayout"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
-                    android:text="@string/widgetTextColor"></TextView>
+                    android:text="@string/widgetTextColor" />
 
                 <ImageView
                     android:id="@+id/widgetTextColorSwatch"
@@ -87,7 +87,7 @@
                     android:maxHeight="10dip"
                     android:maxWidth="10dip"
                     android:minHeight="10dip"
-                    android:minWidth="10dip"></ImageView>
+                    android:minWidth="10dip" />
             </RelativeLayout>
 
             <Button
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/widgetTextColorRelativeLayout"
                 android:layout_marginBottom="5dip"
-                android:text="@string/widgetChooseColor"></Button>
+                android:text="@string/widgetChooseColor" />
 
             <RelativeLayout
                 android:id="@+id/widgetToHideIfNoBG"
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dip"
                         android:layout_marginRight="5dip"
-                        android:text="@string/widgetBgColor"></TextView>
+                        android:text="@string/widgetBgColor" />
 
                     <ImageView
                         android:id="@+id/widgetBGColorSwatch"
@@ -127,7 +127,7 @@
                         android:maxHeight="10dip"
                         android:maxWidth="10dip"
                         android:minHeight="10dip"
-                        android:minWidth="10dip"></ImageView>
+                        android:minWidth="10dip" />
                 </RelativeLayout>
 
                 <Button
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/widgetBGColorRelativeLayout"
                     android:layout_marginBottom="5dip"
-                    android:text="@string/widgetChooseColor"></Button>
+                    android:text="@string/widgetChooseColor" />
 
                 <TextView
                     android:id="@+id/widgetTransparency"
@@ -145,7 +145,7 @@
                     android:layout_below="@+id/widgetBGColorButton"
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
-                    android:text="@string/widgetTransparency"></TextView>
+                    android:text="@string/widgetTransparency" />
 
                 <SeekBar
                     android:id="@+id/widgetTransparencyBar"
@@ -156,7 +156,7 @@
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
                     android:max="256"
-                    android:progress="128"></SeekBar>
+                    android:progress="128" />
             </RelativeLayout>
 
             <TextView
@@ -166,7 +166,7 @@
                 android:layout_below="@+id/widgetToHideIfNoBG"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
-                android:text="@string/numDaysToDisplay"></TextView>
+                android:text="@string/numDaysToDisplay" />
 
             <EditText
                 android:id="@+id/widgetNumDays"
@@ -180,7 +180,7 @@
                 android:inputType="number"
                 android:nextFocusLeft="@+id/text"
                 android:nextFocusUp="@+id/text"
-                android:singleLine="true"></EditText>
+                android:singleLine="true" />
 
             <CheckBox
                 android:id="@+id/widgetUse24Hour"
@@ -188,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/widgetNumDays"
                 android:layout_marginBottom="5dip"
-                android:text="@string/use24Hour"></CheckBox>
+                android:text="@string/use24Hour" />
         </RelativeLayout>
     </ScrollView>
 
@@ -200,6 +200,6 @@
         android:layout_marginBottom="5dip"
         android:layout_marginTop="5dip"
         android:text="@string/ok"
-        android:textSize="25dip"></Button>
+        android:textSize="25sp" />
 
 </RelativeLayout>

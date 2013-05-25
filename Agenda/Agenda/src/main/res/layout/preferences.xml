@@ -22,6 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         class="org.reber.agenda.PreferencesFragment"
-        android:visibility="visible"></fragment>
+        android:visibility="visible" />
 
 </LinearLayout>

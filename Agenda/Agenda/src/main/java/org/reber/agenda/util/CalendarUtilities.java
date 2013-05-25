@@ -22,13 +22,16 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.util.Log;
+import com.larvalabs.svgandroid.SVG;
+import com.larvalabs.svgandroid.SVGParser;
 import org.reber.agenda.AndroidCalendar;
 import org.reber.agenda.R;
 import org.reber.agenda.list.Event;
@@ -321,22 +324,15 @@ public class CalendarUtilities {
      * The resource id of for the given color, if it exists. Blue otherwise.
      */
     public static Bitmap getColorCalendarBitmap(Context ctx, String color) {
-        Bitmap bm = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.calendaricon);
-        bm = bm.copy(bm.getConfig(), true);
-        int[] pixels = new int[bm.getWidth() * bm.getHeight()];
+        SVG svg = SVGParser.getSVGFromResource(ctx.getResources(), R.raw.calendaricon, 0xFF0000FF, Color.parseColor(color));
+        PictureDrawable pd = svg.createPictureDrawable();
 
-        bm.getPixels(pixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
+        Bitmap bitmap = Bitmap.createBitmap(pd.getIntrinsicWidth(), pd.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        pd.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        pd.draw(canvas);
 
-        for (int i = 0; i < pixels.length; i++) {
-            int c = pixels[i];
-            if ((c & 0x00FFFFFF) == 0xFF) {
-                pixels[i] = Color.parseColor(color);
-            }
-        }
-
-        bm.setPixels(pixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
-
-        return bm;
+        return bitmap;
     }
 
     /**

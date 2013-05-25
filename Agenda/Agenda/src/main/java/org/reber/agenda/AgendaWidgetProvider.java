@@ -14,19 +14,6 @@
  */
 package org.reber.agenda;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-
-import android.graphics.BitmapFactory;
-import org.reber.agenda.list.Event;
-import org.reber.agenda.util.CalendarUtilities;
-import org.reber.agenda.util.Constants;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -38,6 +25,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+import org.reber.agenda.list.Event;
+import org.reber.agenda.util.CalendarUtilities;
+import org.reber.agenda.util.Constants;
+
+import java.util.*;
 
 /**
  * This is the class that gets run when the widget is added to the homescreen,
@@ -174,7 +166,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
             // There aren't any events in the near future, so we display the default message
             views.setViewVisibility(R.id.event_view, View.INVISIBLE);
             views.setViewVisibility(R.id.empty_msg, View.VISIBLE);
-            views.setImageViewBitmap(R.id.calendar_item, BitmapFactory.decodeResource(context.getResources(), R.drawable.calendaricon));
+            views.setImageViewBitmap(R.id.calendar_item, CalendarUtilities.getColorCalendarBitmap(context, "blue"));
         } else {
             views.setViewVisibility(R.id.empty_msg, View.INVISIBLE);
             views.setViewVisibility(R.id.event_view, View.VISIBLE);
