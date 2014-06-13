@@ -30,4 +30,5 @@ proguard/
 *.iws
 .idea/
 Agenda/Agenda/build/
+Agenda/build
 .gradle/
