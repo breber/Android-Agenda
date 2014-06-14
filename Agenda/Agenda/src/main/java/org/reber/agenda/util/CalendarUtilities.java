@@ -131,11 +131,9 @@ public class CalendarUtilities {
 
         Set<String> string = pref.getStringSet(Constants.CAL_PREFS, null);
 
-        if (string != null) {
-            for (AndroidCalendar c : getAvailableCalendars()) {
-                if (string.contains(c.getId())) {
-                    calsFromPref.add(c);
-                }
+        for (AndroidCalendar c : getAvailableCalendars()) {
+            if (string == null || string.contains(c.getId())) {
+                calsFromPref.add(c);
             }
         }
 
