@@ -17,7 +17,6 @@
 <resources>
     <string name="appName">Agenda</string>
     <string name="today">Hoy:</string>
-    <!-- <string name="tomorrowAbbreviation">Mañana: </string> -->
     <string name="tomorrow">Mañana:</string>
     <string name="allDay">Todo el Día</string>
     <string name="now">Ahora</string>
@@ -25,7 +24,6 @@
     <string name="noCalendarsSelected">No hay calendarios seleccionados</string>
     <string name="changes">Cambios</string>
     <string name="ok">Ok</string>
-    <!-- <string name="cancel">Cancelar</string> -->
     <string name="appToOpen">App a abrir al hacer click en el widget</string>
     <string name="widgetSettings">Configuración del Widget</string>
     <string name="appSettings">Opciones</string>
@@ -38,11 +36,8 @@
     <string name="widgetTransparency">Transparencia</string>
     <string name="numDaysToDisplay">Número de días a mostrar</string>
     <string name="numDaysHint2">2 Días</string>
-    <!-- <string name="numDaysHint7">7 Días</string> -->
     <string name="use24Hour">Usar formato 24-horas</string>
-    <!-- <string name="showMultipleEvents">Múltiples Eventos</string> -->
     <string name="invalidNumberOfDays">Número de días no válido</string>
-    <!-- <string name="chooseTextSize">Tamaño del Texto</string> -->
     <string name="none">Ninguna</string>
     <string name="large">Grande</string>
     <string name="medium">Mediano</string>
