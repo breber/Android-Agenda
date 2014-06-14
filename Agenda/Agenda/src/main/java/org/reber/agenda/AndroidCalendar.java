@@ -19,7 +19,7 @@ package org.reber.agenda;
  *
  * @author brianreber
  */
-public class AndroidCalendar {
+public class AndroidCalendar implements Comparable<AndroidCalendar> {
 	private String id;
 	private String color;
 	private String name;
@@ -132,4 +132,9 @@ public class AndroidCalendar {
 			return false;
 		return true;
 	}
+
+    @Override
+    public int compareTo(AndroidCalendar androidCalendar) {
+        return name.compareTo(androidCalendar.name);
+    }
 }

@@ -121,7 +121,7 @@ public class CalendarUtilities {
      */
     public Set<org.reber.agenda.AndroidCalendar> getSelectedCalendarFromPref(String prefName) {
         Set<AndroidCalendar> calsFromPref = new HashSet<AndroidCalendar>();
-        SharedPreferences pref = null;
+        SharedPreferences pref;
 
         if (prefName != null) {
             pref = context.getSharedPreferences(prefName, 0);
@@ -156,7 +156,14 @@ public class CalendarUtilities {
         }
 
         // Save the package name in the preferences
-        SharedPreferences pref = context.getSharedPreferences(prefName, 0);
+        SharedPreferences pref;
+
+        if (prefName != null) {
+            pref = context.getSharedPreferences(prefName, 0);
+        } else {
+            pref = PreferenceManager.getDefaultSharedPreferences(context);
+        }
+
         Editor edit = pref.edit();
         edit.putStringSet(Constants.CAL_PREFS, selectedCalsInfo);
         edit.commit();
