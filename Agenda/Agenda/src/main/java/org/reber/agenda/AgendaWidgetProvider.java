@@ -107,7 +107,7 @@ public class AgendaWidgetProvider extends AppWidgetProvider {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        Intent intent = new Intent();
+        Intent intent;
         PendingIntent pendingIntent = null;
 
         if (packageName.equals("org.reber.agenda")) {
