@@ -14,22 +14,25 @@
  */
 package org.reber.agenda;
 
-import org.reber.agenda.list.AgendaListFragment;
-import org.reber.agenda.util.Constants;
-import org.reber.agenda.util.Util;
-
+import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import org.reber.agenda.list.AgendaListFragment;
+import org.reber.agenda.util.CalendarUtilities;
+import org.reber.agenda.util.Util;
+
+import java.util.*;
 
 /**
  * This is the Activity that gets loaded when the user clicks on the app icon,
@@ -42,6 +45,9 @@ public class AgendaActivity extends Activity {
     public static final String WIDGET_EXTRA = "appWidgetId";
 
     private AgendaListFragment frag;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private CalendarUtilities mCalendarUtils;
+    private List<AndroidCalendar> mAvailableCalendars;
 
     /** Called when the activity is first created. */
     @Override
@@ -51,25 +57,61 @@ public class AgendaActivity extends Activity {
 
         setResult(RESULT_OK, new Intent(AgendaWidgetProvider.WIDGET_UPDATE));
 
-        final SharedPreferences pref = getSharedPreferences(Constants.AgendaList.APP_PREFS, 0);
-        if (getResources().getIntArray(R.array.versions)[0] > pref.getInt(Constants.AgendaList.VERSION, Integer.MAX_VALUE)) {
-            Dialog dlg = new Dialog(this);
-            dlg.setTitle(getResources().getString(R.string.changes));
+        mCalendarUtils = new CalendarUtilities(this, false);
 
-            TextView tv = new TextView(this);
-            tv.setText(R.string.updateMessage);
-            tv.setWidth(getApplicationContext().getResources().getDisplayMetrics().widthPixels - 10);
-            tv.setPadding(5, 0, 5, 5);
-            dlg.setContentView(tv);
-            dlg.setOnDismissListener(new OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    Editor edit = pref.edit();
-                    edit.putInt(Constants.AgendaList.VERSION, getResources().getIntArray(R.array.versions)[0]);
-                    edit.commit();
+        try {
+            mCalendarUtils.setSelectedCalendars(mCalendarUtils.getSelectedCalendarFromPref(null));
+        } catch (NoSuchElementException e) {
+            mCalendarUtils.setSelectedCalendars(new HashSet<AndroidCalendar>());
+        }
+
+        ListView drawerList = (ListView) findViewById(R.id.left_drawer);
+        mAvailableCalendars = new ArrayList<AndroidCalendar>(mCalendarUtils.getAvailableCalendars());
+        Collections.sort(mAvailableCalendars);
+
+        drawerList.setAdapter(new ArrayAdapter<AndroidCalendar>(AgendaActivity.this,
+                android.R.layout.simple_list_item_multiple_choice, mAvailableCalendars));
+
+        drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+                Set<AndroidCalendar> selectedCalendars = mCalendarUtils.getSelectedCalendars();
+                selectedCalendars.add(mAvailableCalendars.get(position));
+                mCalendarUtils.setSelectedCalendars(selectedCalendars);
+                mCalendarUtils.saveSelectedCalendarsPref(null);
+            }
+        });
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer,
+                R.string.appName, R.string.appName) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                frag.notifyUtilUpdated();
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                ListView drawerList = (ListView) findViewById(R.id.left_drawer);
+                List<AndroidCalendar> selectedCalendars = new ArrayList<AndroidCalendar>(mCalendarUtils.getSelectedCalendars());
+
+                for (AndroidCalendar cal : mAvailableCalendars) {
+                    drawerList.setItemChecked(mAvailableCalendars.indexOf(cal), selectedCalendars.contains(cal));
                 }
-            });
-            dlg.show();
+
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        drawerLayout.setDrawerListener(mDrawerToggle);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
         }
 
         frag = (AgendaListFragment) getFragmentManager().findFragmentById(R.id.list_frag);
@@ -82,6 +124,19 @@ public class AgendaActivity extends Activity {
         if (frag != null) {
             frag.notifyUtilUpdated();
         }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     /**
@@ -113,11 +168,15 @@ public class AgendaActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         int id = item.getItemId();
 
-        if (id == R.id.refresh) {
-            frag.notifyUtilUpdated();
-        } else if (id == R.id.chooseSettings) {
+        if (id == R.id.chooseSettings) {
             Intent temp = new Intent(Intent.ACTION_CHOOSER);
             temp.setClass(this, SettingsActivity.class);
             startActivity(temp);
@@ -128,7 +187,7 @@ public class AgendaActivity extends Activity {
             startActivity(intent);
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
     /* (non-Javadoc)
@@ -140,10 +199,6 @@ public class AgendaActivity extends Activity {
 
         if (requestCode == 10000 && resultCode != RESULT_CANCELED) {
             frag.notifyUtilUpdated();
-
-            //			if (calfrag != null) {
-            //				calfrag.setPrefToGrabFrom(Constants.AgendaList.APP_PREFS);
-            //			}
         }
     }
 }

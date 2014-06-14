@@ -36,7 +36,6 @@ public class Constants {
 	}
 
 	public static class AgendaList {
-		public static String VERSION = "AgendaActivityVersion";
 		public static String APP_PREFS = "AppPrefs";
 		public static String USE_24_HR = "24Hour";
 		public static String ENABLE_CLICK_EVENT = "EnableClickEvent";

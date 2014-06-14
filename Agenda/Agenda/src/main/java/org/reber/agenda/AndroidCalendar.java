@@ -16,17 +16,17 @@ package org.reber.agenda;
 
 /**
  * A class that represents a calendar used in the Calendar widget
- * 
+ *
  * @author brianreber
  */
-public class AndroidCalendar {
+public class AndroidCalendar implements Comparable<AndroidCalendar> {
 	private String id;
 	private String color;
 	private String name;
 
 	/**
 	 * Creates a new Calendar with the given parameters
-	 * 
+	 *
 	 * @param id
 	 * The id of the calendar
 	 * @param color
@@ -87,7 +87,7 @@ public class AndroidCalendar {
 	 */
 	@Override
 	public String toString() {
-		return "Calendar [id=" + id + ", color=" + color + ", name=" + name + "]";
+		return name;
 	}
 
 	/* (non-Javadoc)
@@ -132,4 +132,9 @@ public class AndroidCalendar {
 			return false;
 		return true;
 	}
+
+    @Override
+    public int compareTo(AndroidCalendar androidCalendar) {
+        return name.compareTo(androidCalendar.name);
+    }
 }

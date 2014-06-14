@@ -7,35 +7,33 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/chooseLabel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/upcomingEvents"
-        android:textSize="15sp" />
-
-    <RelativeLayout
-        android:id="@+id/listViewRelative"
+    <!-- The main content view -->
+    <fragment
+        android:id="@+id/list_frag"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/chooseLabel">
+        class="org.reber.agenda.list.AgendaListFragment"
+        android:visibility="visible"
+        tools:layout="@layout/simple_list_item_1"/>
 
-        <fragment
-            android:id="@+id/list_frag"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            class="org.reber.agenda.list.AgendaListFragment"
-            android:visibility="visible" />
-    </RelativeLayout>
+    <!-- The navigation drawer -->
+    <ListView android:id="@+id/left_drawer"
+              android:layout_width="280dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="start"
+              android:choiceMode="multipleChoice"
+              android:background="@android:color/background_light"/>
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

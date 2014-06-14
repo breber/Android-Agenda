@@ -14,13 +14,6 @@
  */
 package org.reber.agenda.list;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import org.reber.agenda.R;
-import org.reber.agenda.util.CalendarUtilities;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -29,6 +22,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import org.reber.agenda.R;
+import org.reber.agenda.util.CalendarUtilities;
+
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * A representation of an event in a user's calendar.
@@ -219,10 +218,10 @@ public class Event extends ListItem {
             labelLocation.setText(location);
         }
 
-        int[] colors = new int[10 * 60];
+        int[] colors = new int[15 * 80];
         Arrays.fill(colors, Color.parseColor(getColor()));
 
-        Bitmap bm = Bitmap.createBitmap(colors, 10, 60, Bitmap.Config.RGB_565);
+        Bitmap bm = Bitmap.createBitmap(colors, 15, 80, Bitmap.Config.RGB_565);
 
         iv.setImageBitmap(bm);
 

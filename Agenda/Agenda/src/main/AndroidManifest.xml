@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.reber.agenda"
-    android:versionCode="27"
-    android:versionName="2.2.2">
+    android:versionCode="28"
+    android:versionName="2.3.0">
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
-
     <application
+        android:allowBackup="false"
         android:icon="@drawable/icon"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
         android:label="@string/appName">
         <activity
             android:name=".AgendaActivity"

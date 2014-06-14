@@ -10,7 +10,7 @@
  * duplicated in all such forms and that any documentation,
  * advertising materials, and other materials related to such
  * distribution and use acknowledge that the software was developed
- * by Brian Reber.  
+ * by Brian Reber.
  * THIS SOFTWARE IS PROVIDED 'AS IS' AND WITHOUT ANY EXPRESS OR
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
@@ -18,7 +18,6 @@
 <resources>
     <string name="appName">Агенда</string>
     <string name="today">Сегодня:</string>
-    <!-- <string name="tomorrowAbbreviation">Завтра: </string> -->
     <string name="tomorrow">Завтра:</string>
     <string name="allDay">Весь день</string>
     <string name="now">Сейчас</string>
@@ -26,11 +25,9 @@
     <string name="noCalendarsSelected">Календари не выбраны</string>
     <string name="changes">Изменения</string>
     <string name="ok">Сохранить</string>
-    <!-- <string name="cancel">Отмена</string> -->
     <string name="appToOpen">Приложение, запускаемое при нажатии на виджет</string>
     <string name="widgetSettings">Настройки виджета</string>
     <string name="appSettings">Настройки</string>
-    <string name="upcomingEvents">События на ближайшие %d дней</string>
     <string name="refresh">Обновить</string>
     <string name="chooseCalendars">Выбрать календари</string>
     <string name="chooseCalendarsWidget">Календари, отображаемые в окне виджета</string>
@@ -40,11 +37,8 @@
     <string name="widgetTransparency">Прозрачность виджета</string>
     <string name="numDaysToDisplay">Кол-во отображаемых дней</string>
     <string name="numDaysHint2">2 дня</string>
-    <!-- <string name="numDaysHint7">7 дня</string> -->
     <string name="use24Hour">24-часовой формат</string>
-    <!-- <string name="showMultipleEvents">Многочисленные события</string> -->
     <string name="invalidNumberOfDays">Неверное кол-во дней</string>
-    <!-- <string name="chooseTextSize">Размер текста виджета</string> -->
     <string name="large">Крупный</string>
     <string name="medium">Средний</string>
     <string name="small">Мелкий</string>
