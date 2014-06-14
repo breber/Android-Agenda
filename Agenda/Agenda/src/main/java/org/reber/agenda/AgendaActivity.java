@@ -14,22 +14,22 @@
  */
 package org.reber.agenda;
 
-import org.reber.agenda.list.AgendaListFragment;
-import org.reber.agenda.util.Constants;
-import org.reber.agenda.util.Util;
-
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import org.reber.agenda.list.AgendaListFragment;
+import org.reber.agenda.util.CalendarUtilities;
+import org.reber.agenda.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Activity that gets loaded when the user clicks on the app icon,
@@ -42,6 +42,7 @@ public class AgendaActivity extends Activity {
     public static final String WIDGET_EXTRA = "appWidgetId";
 
     private AgendaListFragment frag;
+    private CalendarUtilities mCalendarUtils;
 
     /** Called when the activity is first created. */
     @Override
@@ -51,26 +52,21 @@ public class AgendaActivity extends Activity {
 
         setResult(RESULT_OK, new Intent(AgendaWidgetProvider.WIDGET_UPDATE));
 
-        final SharedPreferences pref = getSharedPreferences(Constants.AgendaList.APP_PREFS, 0);
-        if (getResources().getIntArray(R.array.versions)[0] > pref.getInt(Constants.AgendaList.VERSION, Integer.MAX_VALUE)) {
-            Dialog dlg = new Dialog(this);
-            dlg.setTitle(getResources().getString(R.string.changes));
+        mCalendarUtils = new CalendarUtilities(this, false);
 
-            TextView tv = new TextView(this);
-            tv.setText(R.string.updateMessage);
-            tv.setWidth(getApplicationContext().getResources().getDisplayMetrics().widthPixels - 10);
-            tv.setPadding(5, 0, 5, 5);
-            dlg.setContentView(tv);
-            dlg.setOnDismissListener(new OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    Editor edit = pref.edit();
-                    edit.putInt(Constants.AgendaList.VERSION, getResources().getIntArray(R.array.versions)[0]);
-                    edit.commit();
-                }
-            });
-            dlg.show();
-        }
+        List<AndroidCalendar> availableCalendars = new ArrayList<AndroidCalendar>(mCalendarUtils.getAvailableCalendars());
+
+        ListView drawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        drawerList.setAdapter(new ArrayAdapter<AndroidCalendar>(this,
+                android.R.layout.simple_list_item_multiple_choice, availableCalendars));
+        drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView parent, View view, int position, long id) {
+//                selectItem(position);
+            }
+        });
 
         frag = (AgendaListFragment) getFragmentManager().findFragmentById(R.id.list_frag);
     }

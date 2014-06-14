@@ -11,7 +11,9 @@
         android:targetSdkVersion="17" />
 
     <application
+        android:allowBackup="false"
         android:icon="@drawable/icon"
+        android:theme="@android:style/Theme.DeviceDefault.Light"
         android:label="@string/appName">
         <activity
             android:name=".AgendaActivity"

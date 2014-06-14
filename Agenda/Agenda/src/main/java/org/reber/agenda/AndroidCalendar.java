@@ -16,7 +16,7 @@ package org.reber.agenda;
 
 /**
  * A class that represents a calendar used in the Calendar widget
- * 
+ *
  * @author brianreber
  */
 public class AndroidCalendar {
@@ -26,7 +26,7 @@ public class AndroidCalendar {
 
 	/**
 	 * Creates a new Calendar with the given parameters
-	 * 
+	 *
 	 * @param id
 	 * The id of the calendar
 	 * @param color
@@ -87,7 +87,7 @@ public class AndroidCalendar {
 	 */
 	@Override
 	public String toString() {
-		return "Calendar [id=" + id + ", color=" + color + ", name=" + name + "]";
+		return name;
 	}
 
 	/* (non-Javadoc)

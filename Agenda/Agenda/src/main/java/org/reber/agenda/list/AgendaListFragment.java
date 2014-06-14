@@ -14,20 +14,6 @@
  */
 package org.reber.agenda.list;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
-
-import org.reber.agenda.AgendaActivity;
-import org.reber.agenda.AndroidCalendar;
-import org.reber.agenda.R;
-import org.reber.agenda.util.CalendarUtilities;
-import org.reber.agenda.util.Constants;
-
 import android.app.ListFragment;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -39,8 +25,14 @@ import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+import org.reber.agenda.AgendaActivity;
+import org.reber.agenda.AndroidCalendar;
+import org.reber.agenda.R;
+import org.reber.agenda.util.CalendarUtilities;
+import org.reber.agenda.util.Constants;
+
+import java.util.*;
 
 /**
  * A fragment that displays the list of upcoming appointments.
@@ -67,7 +59,7 @@ public class AgendaListFragment extends ListFragment {
         }
 
         pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        this.util = new CalendarUtilities(getActivity(), pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
+        util = new CalendarUtilities(getActivity(), pref.getBoolean(Constants.AgendaList.USE_24_HR, false));
 
         notifyUtilUpdated();
     }
@@ -166,12 +158,6 @@ public class AgendaListFragment extends ListFragment {
             NUM_DAYS_IN_LIST = Integer.parseInt(pref.getString(Constants.AgendaList.NUM_DAYS, "7"));
         } catch (NumberFormatException e) {
             NUM_DAYS_IN_LIST = 7;
-        }
-
-        TextView title = (TextView) getActivity().findViewById(R.id.chooseLabel);
-
-        if (title != null) {
-            title.setText(String.format(getResources().getString(R.string.upcomingEvents), AgendaListFragment.NUM_DAYS_IN_LIST));
         }
 
         updateList();
